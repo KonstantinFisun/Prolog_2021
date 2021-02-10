@@ -75,3 +75,6 @@ brother(X):-brother(Y,X),write(Y),nl,fail.
 
 sister(X,Y):-woman(X),mother(Z,X),mother(Z,Y),Y\=X.
 sister(X):-sister(Y,X),write(Y),nl,fail.
+
+b_s(X,Y):-mother(Z,X),mother(Z,Y),X\=Y.
+b_s(X):-b_s(Y,X),write(Y),nl,fail.
