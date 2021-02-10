@@ -63,3 +63,6 @@ men(X):-man(X),write(X),nl,fail.
 women(X):-woman(X),write(X),nl,fail.
 
 children(X):-parent(X,Y),write(Y),nl,fail.
+
+mother(X,Y):-parent(X,Y),woman(X).
+mother(X):-mother(Y,X),write(Y).
