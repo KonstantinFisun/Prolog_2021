@@ -95,3 +95,6 @@ grand_pas(X):-grand_pa(Y,X),write(Y),nl,fail.
 grand_ma(X,Y):-parent(Z,Y),parent(X,Z),woman(X).
 grand_mas(X):-grand_ma(Y,X),write(Y),nl,fail.
 
+grand_pa_and_son(X,Y):-man(X),man(Y),grand_pa(X,Y);grand_pa(Y,X).
+
+
