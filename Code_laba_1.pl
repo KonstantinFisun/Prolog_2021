@@ -59,5 +59,6 @@ parent(nina,lisa).
 parent(nina,makar).
 parent(nina,tanya).
 
-
+men(X):-man(X),write(X),nl,fail.
+women(X):-woman(X),write(X),nl,fail.
 
