@@ -101,3 +101,6 @@ grand_pa_and_da(X,Y):-(woman(X);woman(Y)),(grand_pa(X,Y);grand_pa(Y,X)).
 
 uncle(X,Y):-parent(Z,Y),b_s(Z,X),man(X).
 uncle(X):-uncle(Y,X),write(Y),nl,fail.
+
+aunt(X,Y):-parent(Z,Y),b_s(Z,X),woman(X).
+aunt(X):-aunt(Y,X),write(Y),nl,fail.
