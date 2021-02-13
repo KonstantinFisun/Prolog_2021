@@ -58,6 +58,7 @@ parent(marina,ilya).
 parent(maksim,vasya).
 parent(maksim,lesha).
 parent(maksim,anna).
+
 parent(irina,vasya).
 parent(irina,lesha).
 parent(irina,anna).
@@ -78,7 +79,7 @@ mother(X,Y):-parent(X,Y),woman(X).
 mother(X):-mother(Y,X),write(Y).
 
 son(X,Y):-parent(Y,X),man(X).
-son(X):-son(Y,X),write(Y),nl,fail.
+son(X):-son(Y,X),write(Y),!.
 
 brother(X,Y):-man(X),mother(Z,X),mother(Z,Y),Y\=X.
 brother(X):-brother(Y,X),write(Y),nl,fail.
