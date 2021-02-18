@@ -28,6 +28,13 @@ fact_down(I,F,N,X):- I1 is I+1,F1 is F*I1,fact_down(I1,F1,N,X).
 
 fact_down(N,X):-fact_down(0,1,N,X).
 
+% Задание 5. Реализовать предикат fib(N,X), где X – число Фибоначчи с
+% номером N, причем 1 и 2 элемент равны 1 с помощью рекурсии вверх.+
+
+fib_up(1,1):-!.
+fib_up(2,1):-!.
+fib_up(N,X):-N1 is N-1,fib_up(N1,X1),N2 is N-2,fib_up(N2,X2), X is X1+X2.
+
 
 
 
