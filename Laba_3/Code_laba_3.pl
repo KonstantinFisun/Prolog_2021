@@ -45,6 +45,10 @@ fib_down(I,F1,F2,N,X):-I1 is I+1,F3 is F1+F2,fib_down(I1,F2,F3,N,X).
 fib_down(N,X):-fib_down(1,1,1,N,X).
 
 
+% Задание 7. Найти сумму цифр числа с помощью рекурсии вверх+
+sum_digit_up(0,0):-!.
+sum_digit_up(N,X):-N1 is N div 10, sum_digit_up(N1,X1),X is X1+N mod 10.
+
 
 
 
