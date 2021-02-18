@@ -80,5 +80,25 @@ sum_digit_del3_down(0,X,X):-!.
 sum_digit_del3_down(A,Sum,X):- Ad is A div 10,del3(A,Y),Sum1 is Sum+Y, sum_digit_del3_down(Ad,Sum1,X).
 
 
+% Задание 12. Найти НОД двух чисел. +
+nod(A,A,A):-A=\=0,!. % остановка
+nod(0,B,B):-!.
+nod(A,0,A):-!.
+nod(A,B,Nod):-A>B,C is A mod B, nod(C,B,Nod).
+nod(A,B,Nod):-A<B,C is B mod A, nod(A,C,Nod).
+
+%Проверить число на простоту
+prime(N,X):- N mod X =:= 0,!. % делится без остатка, выходим
+prime(N,X):- X*X=<N,X1 is X+1,prime(N,X1).
+
+prime(1):-!.
+prime(N):-not(prime(N,2)).
+
+%Найти количество делителей числа
+divisors(_,0,0):-!.
+divisors(N,I,X):-N mod I =:= 0,I1 is I-1, divisors(N,I1,X1), X is X1+1; N mod I=\= 0, I1 is I -1, divisors(N,I1,X1), X is X1.
+divisors(N,X):-divisors(N,N,X).
+
+
 
 
