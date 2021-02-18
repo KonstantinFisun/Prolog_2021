@@ -66,5 +66,13 @@ max_digit_down(0,X,X):-!. %остановка, когда нет цифр
 max_digit_down(A,Max,X):-Am is A mod 10,Ad is A div 10,Am1 is Ad mod 10, max(Am,Am1,C),max(C,Max,U),max_digit_down(Ad,U,X).
 
 
+% Задание 11.Найти сумму цифр числа, делящихся на 3 с помощью рекурсии
+% вверх+ и рекурсии вниз+.
+sum_digit_del3_up(0,0):-!.
+sum_digit_del3_up(N,X):-N1 is N div 10, sum_digit_del3_up(N1,X1), del3(N,Y), X is X1+Y.
+
+del3(X,Y):- X mod 10 mod 3 =:= 0 , Y is X mod 10,!.
+del3(_,Y):-Y is 0,!.
+
 
 
