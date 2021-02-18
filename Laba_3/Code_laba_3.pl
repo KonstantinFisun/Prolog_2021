@@ -60,6 +60,10 @@ sum_digit_down(A,Sum,X):-Am is A mod 10,Ad is A div 10,Sum1 is Sum+Am,sum_digit_
 max_digit_up(0,0):-!.
 max_digit_up(N,X):-N1 is N div 10, max_digit_up(N1,X1), F is N mod 10, max(F,X1,X) .
 
+%Задание 10. Найти максимальную цифру числа с помощью рекурсии вниз.+
+max_digit_down(N,X):-max_digit_down(N,0,X).
+max_digit_down(0,X,X):-!. %остановка, когда нет цифр
+max_digit_down(A,Max,X):-Am is A mod 10,Ad is A div 10,Am1 is Ad mod 10, max(Am,Am1,C),max(C,Max,U),max_digit_down(Ad,U,X).
 
 
 
