@@ -56,6 +56,9 @@ sum_digit_down(0,X,X):-!.
 sum_digit_down(A,Sum,X):-Am is A mod 10,Ad is A div 10,Sum1 is Sum+Am,sum_digit_down(Ad,Sum1,X).
 
 
+% Задание 9. Найти максимальную цифру числа с помощью рекурсии вверх +
+max_digit_up(0,0):-!.
+max_digit_up(N,X):-N1 is N div 10, max_digit_up(N1,X1), F is N mod 10, max(F,X1,X) .
 
 
 
