@@ -21,6 +21,12 @@ max_2(X,Y,U,Z):-max(X,Y,C),max(U,C,Z).
 fact_up(0,1):-!.
 fact_up(N,X):-N1 is N-1,fact_up(N1,X1), X is N*X1.
 
+% Задание 4. Реализовать предикат fact(N,X), где X – это факториал
+% первого аргумента с помощью рекурсии вниз.+
+fact_down(N,X,N,X):-!.
+fact_down(I,F,N,X):- I1 is I+1,F1 is F*I1,fact_down(I1,F1,N,X).
+
+fact_down(N,X):-fact_down(0,1,N,X).
 
 
 
