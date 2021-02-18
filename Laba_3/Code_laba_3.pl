@@ -36,6 +36,15 @@ fib_up(2,1):-!.
 fib_up(N,X):-N1 is N-1,fib_up(N1,X1),N2 is N-2,fib_up(N2,X2), X is X1+X2.
 
 
+% Задание 6. Реализовать предикат fib(N,X), где X – число Фибоначчи с
+% номером N, причем 1 и 2 элемент равны 1 с помощью рекурсии вниз.+
+
+fib_down(N,X,_,N,X):-!.
+fib_down(I,F1,F2,N,X):-I1 is I+1,F3 is F1+F2,fib_down(I1,F2,F3,N,X).
+
+fib_down(N,X):-fib_down(1,1,1,N,X).
+
+
 
 
 
