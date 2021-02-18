@@ -75,4 +75,10 @@ del3(X,Y):- X mod 10 mod 3 =:= 0 , Y is X mod 10,!.
 del3(_,Y):-Y is 0,!.
 
 
+sum_digit_del3_down(N,X):-sum_digit_del3_down(N,0,X).
+sum_digit_del3_down(0,X,X):-!.
+sum_digit_del3_down(A,Sum,X):- Ad is A div 10,del3(A,Y),Sum1 is Sum+Y, sum_digit_del3_down(Ad,Sum1,X).
+
+
+
 
