@@ -50,6 +50,12 @@ sum_digit_up(0,0):-!.
 sum_digit_up(N,X):-N1 is N div 10, sum_digit_up(N1,X1),X is X1+N mod 10.
 
 
+% Задание 8. Найти сумму цифр числа с помощью рекурсии вниз.+
+sum_digit_down(N,X):-sum_digit_down(N,0,X).
+sum_digit_down(0,X,X):-!.
+sum_digit_down(A,Sum,X):-Am is A mod 10,Ad is A div 10,Sum1 is Sum+Am,sum_digit_down(Ad,Sum1,X).
+
+
 
 
 
