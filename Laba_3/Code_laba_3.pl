@@ -101,4 +101,27 @@ divisors(N,X):-divisors(N,N,X).
 
 
 
+%Задание 13.
+
+% Задание 14. Найти количество чисел, взаимно простых с заданным
+% рекурсией вверх+ и рекурсией вниз+
+
+
+
+kol_mutually_prime_up(_,0,0):-!.
+kol_mutually_prime_up(N,I,X):-nod(N,I,Nod),Nod =:= 1,I1 is I-1,kol_mutually_prime_up(N,I1,X1),X is X1+1; nod(N,I,Nod),Nod =\= 1, I1 is I-1,kol_mutually_prime_up(N,I1,X1), X is X1.
+kol_mutually_prime_up(N,X):-kol_mutually_prime_up(N,N,X).
+
+
+
+mutually_prime(X,Y,Z):-nod(X,Y,Nod),Nod =:= 1, Z is 1,!.
+mutually_prime(_,_,Z):- Z is 0,!.
+
+kol_mutually_prime_down(N,N,X,X):-!.
+kol_mutually_prime_down(N,I,Kol,X):- mutually_prime(N,I,Nod),I1 is I+1, Kol1 is Kol+Nod,kol_mutually_prime_down(N,I1,Kol1,X).
+
+kol_mutually_prime_down(N,X):-kol_mutually_prime_down(N,1,0,X).
+
+
+
 
