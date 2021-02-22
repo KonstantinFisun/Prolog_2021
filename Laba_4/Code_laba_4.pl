@@ -106,3 +106,12 @@ append([H|T1],List2,[H|T2]):-append(T1,List2,T2).
 rever([],_):-!.
 rever([Head|Tail],List):-reverse(Tail,List1),append(Head,List,List1).
 
+
+
+%Задание 11. Построить предикат p(Sublist,List), который возвращает true,
+%если элементы Sublist встречается в List в том же порядке.
+
+p([],_):-!.
+p([Head|Tail],List):-m_list(List,Head),p(Tail,List).
+
+
