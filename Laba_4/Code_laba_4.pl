@@ -148,3 +148,9 @@ no_duble([H|T],[H|T1]):-not(members(H,T)),no_duble(T,T1).
 no_duble([],[]).
 
 
+%«адание 16. ѕостроить предикат, который получает дл€ данного элемента
+%количество раз, которое он встречаетс€ в списке.
+
+counter([],_,0).
+counter([Head|Tail],Head,Num) :- counter(Tail,Head,Num1), Num is Num1+1.
+counter([X|Tail],Head,Num) :- X =\= Head, counter(Tail,Head,Num).
