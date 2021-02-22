@@ -127,5 +127,11 @@ delete_num(X,[Head|Y],[Head|Z]) :- X1 is X-1,delet(X1,Y,Z).
 delete_elem(Head,[Head|Z],Z):-!.
 delete_elem(X,[Head|Y],[Head|Z]):-delete_elem(X,Y,Z).
 
+%Задание 14. Построить предикат, который проверяет, встречаются ли все
+%элементы в списке ровно 1 раз.
 
+replay(_,[]):-!.
+replay(X,[Head|Tail]):- X =\= Head,replay(X,Tail).
+replay([Head|Tail]):-replay(Head,Tail),replay(Tail).
+replay([]):-!.
 
