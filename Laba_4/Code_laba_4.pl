@@ -30,3 +30,15 @@ sum_list:-write("Введите количество элементов"),nl,read(N),read_list(N,List),sum
 
 sum_list_up([],0):-!.
 sum_list_up([Head|Tail],Sum):-sum_list_up(Tail,Sum1),Sum is Sum1+Head.
+
+
+% Задание 4_1. Построить предикат, list_el_numb(+List, ?Elem, ?Number).
+% Если задано значение Elem, то предикат записывает в Number номер
+% первого вхождения Elem. Если задано значение Number, то предикат
+% записывает в Elem значение, находящееся в списке под номером Number.
+% Если заданы оба значения, то предикат проверяет, находится ли элемент
+% Elem в списке под номером Numb.
+
+list_el_numb(List,Elem,Number):-list_el_numb(List,Elem,0,Number).
+list_el_numb([Head|_],Head,Number,Number):-!.
+list_el_numb([_|Tail],Elem,I,Number):-I1 is I+1, list_el_numb(Tail,Elem,I1,Number).
