@@ -82,6 +82,16 @@ min_list_down([],Min,Min):-!.
 min_list_down([Head|Tail],M,Min):-(Head<M -> M1 is Head;M1 is M),min_list_down(Tail,M1,Min).
 min_list_down(List,Min):- min_list_down(List,1000,Min).
 
+
+
+%Задание 8. Реализовать программу, которая читает список, находит и
+%выводит на экран его минимальный элемент. Воспользоваться
+%предикатами из заданий 1, 6 или 7.
+
+pr4_8:-write("Количество элементов списка: "),read(N),nl,write("Введите список"),read_list(N,List),min_list_down(List,Min),write("Минимальный элемент списка: "),write(Min),!.
+
+
+
 %Задание 9. Построить предикат, который возвращает true, если элемент
 %есть в списке.
 
