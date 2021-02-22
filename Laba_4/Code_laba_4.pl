@@ -91,11 +91,18 @@ min_list_down(List,Min):- min_list_down(List,1000,Min).
 pr4_8:-write("Количество элементов списка: "),read(N),nl,write("Введите список"),read_list(N,List),min_list_down(List,Min),write("Минимальный элемент списка: "),write(Min),!.
 
 
-
 %Задание 9. Построить предикат, который возвращает true, если элемент
 %есть в списке.
 
 m_list([El|_],El).
 m_list([_|Tail],El):-m_list(Tail,El).
 
+
+%Задание 10. Построить предикат, который переворачивает список.
+append([],List2,List2).
+append([H|T1],List2,[H|T2]):-append(T1,List2,T2).
+
+%Оказывается reverse заблочен(
+rever([],_):-!.
+rever([Head|Tail],List):-reverse(Tail,List1),append(Head,List,List1).
 
