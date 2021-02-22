@@ -52,3 +52,10 @@ list_el_numb([_|Tail],Elem,I,Number):-I1 is I+1, list_el_numb(Tail,Elem,I1,Numbe
 pr4_4:-write("Количество элементов списка: "),read(N),nl,write("Введите список"),read_list(N,List),nl,write("Введите элемент: "),read(Elem),nl,list_el_numb(List,Elem,Number),write(Number),!.
 
 pr4_4:-write("Нет элемента").
+
+
+%Задание 9. Построить предикат, который возвращает true, если элемент
+%есть в списке.
+
+m_list([El|_],El).
+m_list([_|Tail],El):-m_list(Tail,El).
