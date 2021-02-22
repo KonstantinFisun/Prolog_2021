@@ -72,6 +72,15 @@ min_list_up([], 1000):-!.
 min_list_up([Head|Tail], Min):-min_list_up(Tail,Min1),(Head<Min1 -> Min is Head;Min is Min1).
 
 
+%Задание 7. Реализовать предикат min_list_down(+List, ?Min), который
+%записывает минимальный элемент списка List в переменную Min или
+%проверяет, является ли значение в переменной Min минимальным
+%элементом в списке List. Реализацию провести рекурсией вниз.
+
+
+min_list_down([],Min,Min):-!.
+min_list_down([Head|Tail],M,Min):-(Head<M -> M1 is Head;M1 is M),min_list_down(Tail,M1,Min).
+min_list_down(List,Min):- min_list_down(List,1000,Min).
 
 %Задание 9. Построить предикат, который возвращает true, если элемент
 %есть в списке.
