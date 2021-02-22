@@ -118,5 +118,14 @@ p([Head|Tail],List):-m_list(List,Head),p(Tail,List).
 %Задание 12. Построить предикат, который удаляет элемент с заданным
 %номером из списка.
 
-delet(0,[_|Z],Z):- !.
-delet(X,[Head|Y],[Head|Z]) :- X1 is X-1,delet(X1,Y,Z).
+delete_num(0,[_|Z],Z):- !.
+delete_num(X,[Head|Y],[Head|Z]) :- X1 is X-1,delet(X1,Y,Z).
+
+%Задание 13. Построить предикат, который удаляет все элементы, равные
+%данному.
+
+delete_elem(Head,[Head|Z],Z):-!.
+delete_elem(X,[Head|Y],[Head|Z]):-delete_elem(X,Y,Z).
+
+
+
