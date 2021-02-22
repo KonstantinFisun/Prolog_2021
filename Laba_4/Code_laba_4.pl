@@ -42,3 +42,13 @@ sum_list_up([Head|Tail],Sum):-sum_list_up(Tail,Sum1),Sum is Sum1+Head.
 list_el_numb(List,Elem,Number):-list_el_numb(List,Elem,0,Number).
 list_el_numb([Head|_],Head,Number,Number):-!.
 list_el_numb([_|Tail],Elem,I,Number):-I1 is I+1, list_el_numb(Tail,Elem,I1,Number).
+
+
+% Задание 4_2. Реализовать программу, которая читает список, читает
+% элемент и находит номер первого вхождения элемента в список. В случае,
+% если элемент отсутствует, пользователю выводится соответствующее
+% сообщение. Воспользоваться предикатами из заданий 1 и 3.
+
+pr4_4:-write("Количество элементов списка: "),read(N),nl,write("Введите список"),read_list(N,List),nl,write("Введите элемент: "),read(Elem),nl,list_el_numb(List,Elem,Number),write(Number),!.
+
+pr4_4:-write("Нет элемента").
