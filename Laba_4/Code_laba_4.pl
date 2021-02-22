@@ -154,3 +154,8 @@ no_duble([],[]).
 counter([],_,0).
 counter([Head|Tail],Head,Num) :- counter(Tail,Head,Num1), Num is Num1+1.
 counter([X|Tail],Head,Num) :- X =\= Head, counter(Tail,Head,Num).
+
+%Задание 17. Построить предикат, получающий длину списка.
+lenght([],L,L):-!.
+lenght([_|Tail],I,L):-I1 is I+1,lenght(Tail,I1,L).
+lenght(List,L):-lenght(List,0,L).
