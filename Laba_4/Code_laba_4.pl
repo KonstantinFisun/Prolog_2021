@@ -159,3 +159,14 @@ counter([X|Tail],Head,Num) :- X =\= Head, counter(Tail,Head,Num).
 lenght([],L,L):-!.
 lenght([_|Tail],I,L):-I1 is I+1,lenght(Tail,I1,L).
 lenght(List,L):-lenght(List,0,L).
+
+
+%Задача 1.1 Дан целочисленный массив. Необходимо найти количество
+%элементов, расположенных после последнего максимального.
+
+num_after_max([],0,0,_):-!.
+num_after_max([Head|Tail], Max,I,Num):-num_after_max(Tail,Max1,I1,Num1),I is I1+1,(Head>Max1-> Max is Head,Num is I1;Max is Max1,Num is Num1).
+num_after_max([Head|Tail],Num):- num_after_max([Head|Tail],_,_,Num).
+
+
+pr18_1:-write("Количество элементов списка: "),read(N),nl,write("Введите список"),read_list(N,List),num_after_max(List,Num),write("Количество элементов, расположенных после последнего максимального: "),write(Num),!.
