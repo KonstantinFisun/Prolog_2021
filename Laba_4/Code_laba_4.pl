@@ -135,3 +135,16 @@ replay(X,[Head|Tail]):- X =\= Head,replay(X,Tail).
 replay([Head|Tail]):-replay(Head,Tail),replay(Tail).
 replay([]):-!.
 
+
+%«адание 15.so ѕостроить предикат, который строит новый список,
+%составленный из уникальных элементов введенного, то есть убирает все
+%повторы, например из списка [1,1,2,3,3,3] получает список [1,2,3].
+
+
+members(H,[H|_]).
+members(H,[_|T]):-members(H,T).
+no_duble([H|T],T1):-members(H,T),no_duble(T,T1).
+no_duble([H|T],[H|T1]):-not(members(H,T)),no_duble(T,T1).
+no_duble([],[]).
+
+
