@@ -170,3 +170,11 @@ num_after_max([Head|Tail],Num):- num_after_max([Head|Tail],_,_,Num).
 
 
 pr18_1:-write("Количество элементов списка: "),read(N),nl,write("Введите список"),read_list(N,List),num_after_max(List,Num),write("Количество элементов, расположенных после последнего максимального: "),write(Num),!.
+
+
+%Задача 1.2 Дан целочисленный массив. Необходимо найти индекс
+%минимального элемента.
+
+index_min(List,Num):-min_list_up(List,Min),list_el_numb(List,Min,Num).
+
+pr18_2:-write("Количество элементов списка: "),read(N),nl,write("Введите список"),read_list(N,List),index_min(List,Num),write("Индекс минимального элемента: "),write(Num),!.
