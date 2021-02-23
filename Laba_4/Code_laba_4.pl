@@ -217,5 +217,10 @@ num_min([],10000,_,_):-!.
 num_min([Head|Tail], Min,I,Num):-I1 is I+1,num_min(Tail,Min1,I1,Num1),(Head<Min1-> Min is Head,Num is I1-2;Min is Min1,Num is Num1).
 num_min([Head|Tail],Num):- num_min([Head|Tail],_,0,Num).
 
+%1.29 Дан целочисленный массив и интервал a..b. Необходимо проверить
+%наличие максимального элемента массива в этом интервале.
+
+max_in_interval(List,Interval):-max_list_up(List,Max1,_),list_el_numb(Interval,Max1,_).
+
 
 
