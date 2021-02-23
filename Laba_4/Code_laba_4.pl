@@ -178,3 +178,11 @@ pr18_1:-write("Количество элементов списка: "),read(N),nl,write("Введите список"
 index_min(List,Num):-min_list_up(List,Min),list_el_numb(List,Min,Num).
 
 pr18_2:-write("Количество элементов списка: "),read(N),nl,write("Введите список"),read_list(N,List),index_min(List,Num),write("Индекс минимального элемента: "),write(Num),!.
+
+
+%1.14 Дан целочисленный массив и интервал a..b. Необходимо найти
+%количество элементов в этом интервале.
+
+kol_sym_interval(_,[],0):-!.
+kol_sym_interval(List,[Head|Tail],Num):-kol_sym_interval(List,Tail,Num1),counter(List,Head,Kol), Num is Num1+Kol.
+
