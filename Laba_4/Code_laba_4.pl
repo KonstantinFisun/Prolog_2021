@@ -205,6 +205,17 @@ interval([],_,_,[],_):-!.
 interval([Head|Tail],Number1,Number2,List2,I):-I1 is I+1,interval(Tail,Number1,Number2,List3,I1),(I<Number2,I>Number1 -> append([Head],List3,List2);append([],List3,List2)).
 interval(List1,Number1,Number2,List2):-interval(List1,Number1,Number2,List2,0).
 
-
+%Основной предикат
 elem_between_max(List1,List2):-max_list_up(List1,Max,Max_2),list_el_numb(List1,Max,Number1),list_el_numb(List1,Max_2,Number2),(Number2>Number1 -> interval(List1,Number1,Number2,List2);interval(List1,Number2,Number1,List2)).
+
+
+
+%1.26 Дан целочисленный массив. Необходимо найти количество
+%элементов между первым и последним минимальным.
+
+num_min([],10000,_,_):-!.
+num_min([Head|Tail], Min,I,Num):-I1 is I+1,num_min(Tail,Min1,I1,Num1),(Head<Min1-> Min is Head,Num is I1-2;Min is Min1,Num is Num1).
+num_min([Head|Tail],Num):- num_min([Head|Tail],_,0,Num).
+
+
 
