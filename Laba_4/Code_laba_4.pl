@@ -186,3 +186,25 @@ pr18_2:-write("Количество элементов списка: "),read(N),nl,write("Введите список"
 kol_sym_interval(_,[],0):-!.
 kol_sym_interval(List,[Head|Tail],Num):-kol_sym_interval(List,Tail,Num1),counter(List,Head,Kol), Num is Num1+Kol.
 
+pr18_14:-write("Количество элементов списка: "),read(N1),nl,write("Введите список"),read_list(N1,List1),
+    write("Количество элементов интервала: "),read(N2),nl,write("Введите интервал"),read_list(N2,List2),
+    kol_sym_interval(List1,List2,Num),write("Количество символов из интервала: "),write(Num),!.
+
+
+%1.16 Дан целочисленный массив. Необходимо найти элементы,
+%расположенные между первым и вторым максимальным.
+
+%Находим номера максимальных
+max_list_up([], 0,0):-!.
+max_list_up([Head|Tail], Max,Max_2):-max_list_up(Tail,Max1,Max1_2),(Head>Max1 -> Max is Head,Max_2 is Max1; Head<Max1,Head>Max1_2 -> Max is Max1,Max_2 is Head; Max is Max1, Max_2 is Max1_2).
+
+
+
+%предикат удаления на интервале
+interval([],_,_,[],_):-!.
+interval([Head|Tail],Number1,Number2,List2,I):-I1 is I+1,interval(Tail,Number1,Number2,List3,I1),(I<Number2,I>Number1 -> append([Head],List3,List2);append([],List3,List2)).
+interval(List1,Number1,Number2,List2):-interval(List1,Number1,Number2,List2,0).
+
+
+elem_between_max(List1,List2):-max_list_up(List1,Max,Max_2),list_el_numb(List1,Max,Number1),list_el_numb(List1,Max_2,Number2),(Number2>Number1 -> interval(List1,Number1,Number2,List2);interval(List1,Number2,Number1,List2)).
+
