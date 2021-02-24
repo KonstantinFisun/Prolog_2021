@@ -99,12 +99,12 @@ m_list([_|Tail],El):-m_list(Tail,El).
 
 
 %Задание 10. Построить предикат, который переворачивает список.
-append([],List2,List2).
-append([H|T1],List2,[H|T2]):-append(T1,List2,T2).
+append1([],List2,List2).
+append1([H|T1],List2,[H|T2]):-append1(T1,List2,T2).
 
 %Оказывается reverse заблочен(
 rever([],_):-!.
-rever([Head|Tail],List):-reverse(Tail,List1),append(Head,List,List1).
+rever([Head|Tail],List):-reverse(Tail,List1),append1(Head,List,List1).
 
 
 
@@ -202,7 +202,7 @@ max_list_up([Head|Tail], Max,Max_2):-max_list_up(Tail,Max1,Max1_2),(Head>Max1 ->
 
 %предикат удаления на интервале
 interval([],_,_,[],_):-!.
-interval([Head|Tail],Number1,Number2,List2,I):-I1 is I+1,interval(Tail,Number1,Number2,List3,I1),(I<Number2,I>Number1 -> append([Head],List3,List2);append([],List3,List2)).
+interval([Head|Tail],Number1,Number2,List2,I):-I1 is I+1,interval(Tail,Number1,Number2,List3,I1),(I<Number2,I>Number1 -> append1([Head],List3,List2);append1([],List3,List2)).
 interval(List1,Number1,Number2,List2):-interval(List1,Number1,Number2,List2,0).
 
 %Основной предикат
@@ -224,3 +224,9 @@ max_in_interval(List,Interval):-max_list_up(List,Max1,_),list_el_numb(Interval,M
 
 
 
+%1.44 Дан массив чисел. Необходимо проверить, чередуются ли в нем
+%целые и вещественные числа.
+
+alternates(_,[]):-!.
+alternates([Head|Tail],[Head1|Tail1]):-( (integer(Head),not(integer(Head1))) ; ( not(integer(Head)),integer(Head1)) ) ,alternates(Tail,Tail1).
+alternates([Head|Tail]):-alternates([Head|Tail],Tail).
