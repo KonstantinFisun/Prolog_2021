@@ -219,9 +219,20 @@ num_min([Head|Tail],Num):- num_min([Head|Tail],_,0,Num).
 
 %1.29 Дан целочисленный массив и интервал a..b. Необходимо проверить
 %наличие максимального элемента массива в этом интервале.
+%Находим границы интервала
+inter(List,Number1,Number2):-list_el_numb(List,Number1,0),list_el_numb(List,Number2,1).
 
-max_in_interval(List,Interval):-max_list_up(List,Max1,_),list_el_numb(Interval,Max1,_).
+max_in_interval(List,Interval):-inter(Interval,Num1,Num2),max_list_up(List,Max,_), Max<Num2,Max>Num1.
 
+
+
+
+%1.38 Дан целочисленный массив и отрезок a..b. Необходимо найти
+%количество элементов, значение которых принадлежит этому отрезку.
+
+kol_belongs_otrezok(List,Otrezok,Kol):-inter(Otrezok,Num1,Num2),kol_belongs(List,Kol,Num1,Num2).
+kol_belongs([],0,_,_):-!.
+kol_belongs([Head|Tail],Kol,Num1,Num2):-kol_belongs(Tail,Kol1,Num1,Num2),(Head>=Num1,Head=<Num2 -> Kol is Kol1+1; Kol is Kol1).
 
 
 %1.44 Дан массив чисел. Необходимо проверить, чередуются ли в нем
@@ -230,3 +241,24 @@ max_in_interval(List,Interval):-max_list_up(List,Max1,_),list_el_numb(Interval,M
 alternates(_,[]):-!.
 alternates([Head|Tail],[Head1|Tail1]):-( (integer(Head),not(integer(Head1))) ; ( not(integer(Head)),integer(Head1)) ) ,alternates(Tail,Tail1).
 alternates([Head|Tail]):-alternates([Head|Tail],Tail).
+
+
+
+% 1.50. Для двух введенных списков L1 и L2 построить новый список,
+% состоящий из элементов, встречающихся только в одном из этих списков и
+% не повторяющихся в них.
+%1 проверить чтобы не было повторов
+
+
+%Формируем список из элементов которые не повторяются
+
+not_repeat([],[]):-!. %Завершение
+not_repeat([Head|Tail],Ys):-member(Head,Tail),!,not_repeat(Tail,Ys).
+not_repeat([Head|Tail1],[Head|Tail2]):-member(Head,Tail1),!,not_repeat(Tail1,Tail2).
+
+subtra_ct([],_,[]):-!.
+subtra_ct([E|T],D,R):-memberchk(E,D),!,subtract(T,D,R).
+subtra_ct([H|T],D,[H|R]):-subtract(T,D,R).
+
+%unique([Head1|Tail1],[Head2|Tail2],List4):-
+
