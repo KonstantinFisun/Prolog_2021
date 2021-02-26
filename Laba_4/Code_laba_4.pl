@@ -1,6 +1,7 @@
 %Задание 1. Реализовать предикат чтения списка с клавиатуры и предикат
 %вывода списка на экран.
-%
+
+
 read_list(0,[]):-!.
 read_list(N,[Head|Tail]):-read(Head),N1 is N-1,read_list(N1,Tail). %Чтение списка
 
@@ -68,7 +69,7 @@ pr4_5:-write("Нет элемента с таким номером").
 %проверяет, является ли значение в переменной Min минимальным
 %элементом в списке List. Реализацию провести рекурсией вверх.
 
-min_list_up([], 1000):-!.
+min_list_up([Head], Head):-!.
 min_list_up([Head|Tail], Min):-min_list_up(Tail,Min1),(Head<Min1 -> Min is Head;Min is Min1).
 
 
@@ -80,7 +81,7 @@ min_list_up([Head|Tail], Min):-min_list_up(Tail,Min1),(Head<Min1 -> Min is Head;
 
 min_list_down([],Min,Min):-!.
 min_list_down([Head|Tail],M,Min):-(Head<M -> M1 is Head;M1 is M),min_list_down(Tail,M1,Min).
-min_list_down(List,Min):- min_list_down(List,1000,Min).
+min_list_down([Head|Tail],Min):- min_list_down(Tail,Head,Min).
 
 
 
@@ -99,33 +100,36 @@ m_list([_|Tail],El):-m_list(Tail,El).
 
 
 %Задание 10. Построить предикат, который переворачивает список.
-append1([],List2,List2).
+append1([],List2,List2):-!.
 append1([H|T1],List2,[H|T2]):-append1(T1,List2,T2).
 
-%Оказывается reverse заблочен(
-rever([],_):-!.
-rever([Head|Tail],List):-reverse(Tail,List1),append1(Head,List,List1).
+rever([],[]):-!.
+rever([Head|Tail],List):-rever(Tail,List1),append1(List1,[Head],List).
 
 
 
-%Задание 11. Построить предикат p(Sublist,List), который возвращает true,
-%если элементы Sublist встречается в List в том же порядке.
+% Задание 11-. Построить предикат p(Sublist,List), который возвращает
+% true, если элементы Sublist встречается в List в том же порядке.
 
-p([],_):-!.
-p([Head|Tail],List):-m_list(List,Head),p(Tail,List).
+sub_start([],_):-!.
+sub_start([Head|TailSub],[Head|TailList]):-sub_start(TailSub,TailList).
+
+p(Sub,List):-sub_start(Sub,List),!.
+p(Sub,[_|Tail]):-p(Sub,Tail).
+
 
 
 %Задание 12. Построить предикат, который удаляет элемент с заданным
 %номером из списка.
 
 delete_num(0,[_|Z],Z):- !.
-delete_num(X,[Head|Y],[Head|Z]) :- X1 is X-1,delet(X1,Y,Z).
+delete_num(X,[Head|Y],[Head|Z]) :- X1 is X-1,delete_num(X1,Y,Z).
 
 %Задание 13. Построить предикат, который удаляет все элементы, равные
 %данному.
-
-delete_elem(Head,[Head|Z],Z):-!.
-delete_elem(X,[Head|Y],[Head|Z]):-delete_elem(X,Y,Z).
+%
+delete_elem([],_,[]).
+delete_elem([Head|Tail],X,List_end):-( Head =:= X ->  delete_elem(Tail, X, List_end);   List_end = [Head|Y],delete_elem(Tail, X, Y)).
 
 %Задание 14. Построить предикат, который проверяет, встречаются ли все
 %элементы в списке ровно 1 раз.
@@ -136,24 +140,21 @@ replay([Head|Tail]):-replay(Head,Tail),replay(Tail).
 replay([]):-!.
 
 
-%Задание 15.so Построить предикат, который строит новый список,
+%Задание 15. Построить предикат, который строит новый список,
 %составленный из уникальных элементов введенного, то есть убирает все
 %повторы, например из списка [1,1,2,3,3,3] получает список [1,2,3].
 
-
-members(H,[H|_]).
-members(H,[_|T]):-members(H,T).
-no_duble([H|T],T1):-members(H,T),no_duble(T,T1).
-no_duble([H|T],[H|T1]):-not(members(H,T)),no_duble(T,T1).
-no_duble([],[]).
+no_duble([],[]):-!.
+no_duble([Head|Tail],Tail1):-m_list(Tail,Head),no_duble(Tail,Tail1),!.
+no_duble([Head|Tail],[Head|Tail1]):-not(m_list(Tail,Head)),no_duble(Tail,Tail1),!.
 
 
 %Задание 16. Построить предикат, который получает для данного элемента
 %количество раз, которое он встречается в списке.
 
-counter([],_,0).
-counter([Head|Tail],Head,Num) :- counter(Tail,Head,Num1), Num is Num1+1.
-counter([X|Tail],Head,Num) :- X =\= Head, counter(Tail,Head,Num).
+counter([],_,Kolvo,Kolvo):-!.
+counter([Head|Tail],Elem,Num,Kolvo) :- (Head =:= Elem -> Num1 is Num+1;Num1 is Num), counter(Tail,Elem,Num1,Kolvo).
+counter(List,Elem,Kolvo):-counter(List,Elem,0,Kolvo).
 
 %Задание 17. Построить предикат, получающий длину списка.
 lenght([],L,L):-!.
@@ -164,7 +165,7 @@ lenght(List,L):-lenght(List,0,L).
 %Задача 1.1 Дан целочисленный массив. Необходимо найти количество
 %элементов, расположенных после последнего максимального.
 
-num_after_max([],0,0,_):-!.
+num_after_max([Head],Head,1,_):-!.
 num_after_max([Head|Tail], Max,I,Num):-num_after_max(Tail,Max1,I1,Num1),I is I1+1,(Head>Max1-> Max is Head,Num is I1;Max is Max1,Num is Num1).
 num_after_max([Head|Tail],Num):- num_after_max([Head|Tail],_,_,Num).
 
@@ -182,9 +183,12 @@ pr18_2:-write("Количество элементов списка: "),read(N),nl,write("Введите список"
 
 %1.14 Дан целочисленный массив и интервал a..b. Необходимо найти
 %количество элементов в этом интервале.
+inter(List,Number1,Number2):-list_el_numb(List,Number1,0),list_el_numb(List,Number2,1).
 
-kol_sym_interval(_,[],0):-!.
-kol_sym_interval(List,[Head|Tail],Num):-kol_sym_interval(List,Tail,Num1),counter(List,Head,Kol), Num is Num1+Kol.
+kol_sym_interval([],_,_,Kolvo,Kolvo):-!.
+kol_sym_interval([Head|Tail],Number1,Number2,Num,Kolvo):-(Head<Number2,Head>Number1 -> Num1 is Num+1;Num1 is Num),kol_sym_interval(Tail,Number1,Number2,Num1,Kolvo).
+kol_sym_interval(List,Interval,Num):-inter(Interval,Number1,Number2),kol_sym_interval(List,Number1,Number2,0,Num).
+
 
 pr18_14:-write("Количество элементов списка: "),read(N1),nl,write("Введите список"),read_list(N1,List1),
     write("Количество элементов интервала: "),read(N2),nl,write("Введите интервал"),read_list(N2,List2),
@@ -195,7 +199,8 @@ pr18_14:-write("Количество элементов списка: "),read(N1),nl,write("Введите списо
 %расположенные между первым и вторым максимальным.
 
 %Находим номера максимальных
-max_list_up([], 0,0):-!.
+max_list_up([Head1,Head2], Max,Max_2):- Head1>Head2,Max is Head1,Max_2 is Head2,!.
+max_list_up([Head1,Head2], Head2, Head1):- !.
 max_list_up([Head|Tail], Max,Max_2):-max_list_up(Tail,Max1,Max1_2),(Head>Max1 -> Max is Head,Max_2 is Max1; Head<Max1,Head>Max1_2 -> Max is Max1,Max_2 is Head; Max is Max1, Max_2 is Max1_2).
 
 
@@ -219,8 +224,7 @@ num_min([Head|Tail],Num):- num_min([Head|Tail],_,0,Num).
 
 %1.29 Дан целочисленный массив и интервал a..b. Необходимо проверить
 %наличие максимального элемента массива в этом интервале.
-%Находим границы интервала
-inter(List,Number1,Number2):-list_el_numb(List,Number1,0),list_el_numb(List,Number2,1).
+
 
 max_in_interval(List,Interval):-inter(Interval,Num1,Num2),max_list_up(List,Max,_), Max<Num2,Max>Num1.
 
@@ -247,18 +251,25 @@ alternates([Head|Tail]):-alternates([Head|Tail],Tail).
 % 1.50. Для двух введенных списков L1 и L2 построить новый список,
 % состоящий из элементов, встречающихся только в одном из этих списков и
 % не повторяющихся в них.
-%1 проверить чтобы не было повторов
 
 
 %Формируем список из элементов которые не повторяются
+not_repeat([],_,List_end,List_end):-!.
+not_repeat([Head|Tail],Lis,List,List_end):-counter(Lis,Head,Kol),(Kol =:= 1 -> append1(List,[Head],List1),delete_elem(Lis,Head,Lis1),
+                                                                  not_repeat(Tail,Lis1,List1,List_end);
+                                                                  not_repeat(Tail,Lis,List,List_end)).
+not_repeat(List,List_end):-not_repeat(List,List,[],List_end).
 
-not_repeat([],[]):-!. %Завершение
-not_repeat([Head|Tail],Ys):-member(Head,Tail),!,not_repeat(Tail,Ys).
-not_repeat([Head|Tail1],[Head|Tail2]):-member(Head,Tail1),!,not_repeat(Tail1,Tail2).
+%Пересечение списков
+sverim([],_,[]):-!.
+sverim([Head|Tail],L2,L3):- sverim(Tail,L2,L4),(not(m_list(L2,Head)) -> append1([Head],L4,L3);append1([],L4,L3)).
 
-subtra_ct([],_,[]):-!.
-subtra_ct([E|T],D,R):-memberchk(E,D),!,subtract(T,D,R).
-subtra_ct([H|T],D,[H|R]):-subtract(T,D,R).
 
-%unique([Head1|Tail1],[Head2|Tail2],List4):-
+%Основной предикат
+unique(L1,L2,L_end):-not_repeat(L1,L1_Not_Repeat),not_repeat(L2,L2_Not_Repeat),
+                    sverim(L1_Not_Repeat,L2_Not_Repeat,L1_end),sverim(L2_Not_Repeat,L1_Not_Repeat,L2_end),
+                    append1(L1_end,L2_end,L_end).
+
+
+
 
