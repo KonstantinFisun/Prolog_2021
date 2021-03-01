@@ -101,7 +101,8 @@ divisors(N,X):-divisors(N,N,X).
 
 
 
-%«адание 13.
+
+
 
 % «адание 14. Ќайти количество чисел, взаимно простых с заданным
 % рекурсией вверх+ и рекурсией вниз+
@@ -121,6 +122,25 @@ kol_mutually_prime_down(N,N,X,X):-!.
 kol_mutually_prime_down(N,I,Kol,X):- mutually_prime(N,I,Nod),I1 is I+1, Kol1 is Kol+Nod,kol_mutually_prime_down(N,I1,Kol1,X).
 
 kol_mutually_prime_down(N,X):-kol_mutually_prime_down(N,1,0,X).
+
+
+%«адание 15. Ќайти делитель числа, €вл€ющийс€ взаимно простым с наибольшим количеством цифр данного числа.
+
+mutually(0,_,0):-!.
+mutually(N,I,X):-N1 is N div 10, mutually(N1,I,X1), F is N mod 10,mutually_prime(F,I,Z), X is X1+Z. %¬ переменную X записываетс€ количество взаимно простые с цифрами данного числа
+
+% Ќаходим наш делитель с помощью рекурсии вниз, во первых находим
+% делитель исходного числа, провер€ем с помощью предиката mutually
+% количество взаимно простых, далее провер€ем чтобы оно было больше
+% предыдущего значени€, записываем его и его делитель.
+delitel(0,_,_,Del,Del):-!.
+delitel(I,N,Max_Mut,Del_Iteration,Del):-(N mod I =:= 0,mutually(N,I,Z),Z>Max_Mut -> Max is Z, Del_Iteration1 is I,I1 is I-1,
+                                        delitel(I1,N,Max,Del_Iteration1,Del);
+                                        I1 is I-1,delitel(I1,N,Max_Mut,Del_Iteration,Del)).
+
+
+delitel(N,X):-delitel(N,N,0,0,X).%ƒл€ пользовател€: предикат delitel(+Number,-Delit), где Number исходное число, Delit - делитель, который €вл€етс€ взаимно простым с большим количеством цифр
+
 
 
 
