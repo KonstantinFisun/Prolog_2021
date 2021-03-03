@@ -101,7 +101,29 @@ divisors(N,X):-divisors(N,N,X).
 
 
 
+%Задание 13.
+% Предикат kollanz(+Number) - находит число, при котором цепочка
+% Коллатца имеет максимальную длину
+%Последовательность начинается с 1, размером 1.
+kollanz(Number):-kollanz(1,1,1,Number).
 
+kollanz(Number,Iteration,_,Iteration):-Number>1000000,!. %Условие остановки, если число больше миллиона
+
+% Предикат kollanz(+Number,+Iteration,+Max_Iteration,-Max_Number) - рекурсия вниз
+% Number - счетчик от 1 до 1000000
+% Iteration - число, при котором цепь максимальна
+% Lenght - максимальная длина цепочки на данный момент
+% Max_Number - результат вычислений
+
+kollanz(Number,Iteration,Max_Iteration,Max_Number):-New_number is Number+1,kollanz_chain(New_number,1,Lenght),
+    (Lenght>Max_Iteration -> kollanz(New_number,New_number,Lenght,Max_Number);
+    kollanz(New_number,Iteration,Max_Iteration,Max_Number)).
+
+
+% Предикат kollanz_chain(+Number,+Lenght,-Result),возвращает длину цепочки,
+% которая начинается с Number,
+kollanz_chain(1,Result,Result):-!.
+kollanz_chain(Number,Lenght,Result):-Lenght1 is Lenght+1,(Number mod 2 =:= 0 -> New_Number is Number/2,kollanz_chain(New_Number,Lenght1,Result);New_Number is (Number*3+1),kollanz_chain(New_Number,Lenght1,Result)).
 
 
 % Задание 14. Найти количество чисел, взаимно простых с заданным
