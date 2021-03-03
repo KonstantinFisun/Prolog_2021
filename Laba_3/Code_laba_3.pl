@@ -96,8 +96,8 @@ prime(N):-not(prime(N,2)).
 
 %Найти количество делителей числа
 divisors(_,0,0):-!.
-divisors(N,I,X):-N mod I =:= 0,I1 is I-1, divisors(N,I1,X1), X is X1+1; N mod I=\= 0, I1 is I -1, divisors(N,I1,X1), X is X1.
-divisors(N,X):-divisors(N,N,X).
+divisors(N,I,X):-N mod I =:= 0,I1 is I-1, divisors(N,I1,X1), X is X1+1,!; N mod I=\= 0, I1 is I -1, divisors(N,I1,X1), X is X1.
+divisors(N,X):-divisors(N,N,X1),X is X1-1.
 
 
 
@@ -107,7 +107,7 @@ divisors(N,X):-divisors(N,N,X).
 %Последовательность начинается с 1, размером 1.
 kollanz(Number):-kollanz(1,1,1,Number).
 
-kollanz(Number,Iteration,_,Iteration):-Number>1000000,!. %Условие остановки, если число больше миллиона
+kollanz(1000000,Iteration,_,Iteration):-!. %Условие остановки, если число больше миллиона
 
 % Предикат kollanz(+Number,+Iteration,+Max_Iteration,-Max_Number) - рекурсия вниз
 % Number - счетчик от 1 до 1000000
@@ -165,5 +165,32 @@ delitel(N,X):-delitel(N,N,0,0,X).%Для пользователя: предикат delitel(+Number,-De
 
 
 
+%Задание 16. Найдите количество чисел, меньшее 20000,
+%которые нельзя представить в виде суммы двух чисел с избытком.
+
+%Находим сумму делителей числа
+
+%Основной предикат divisors_sum(Number,I,Summ)
+%Number - число, от которого ищем сумму делителей
+%I - счетчик
+%Summ - вычисление суммы
+
+divisors_sum(_,0,0):-!.
+divisors_sum(N,I,X):-N mod I =:= 0,I1 is I-1, divisors_sum(N,I1,X1), X is X1+I,!; N mod I=\= 0, I1 is I -1, divisors_sum(N,I1,X1), X is X1.
+%Предикат для пользователя divisors_sum(+Number,-Summ)
+divisors_sum(N,X):-(N<0 -> N1 is N*(-1),divisors_sum(N1,N1,X1),X is X1-N1;divisors_sum(N,N,X1),X is X1-N).
+
+%Предикат проверки на избыточность числа
+redundant(Num):-divisors_sum(Num,Summ),Num<Summ.
+
+%Предикат проверки на то, что число можно разложить на 2 избыточных
+summand(Num):-Number1 is 1,Number2 is Num-1,summand(Number1,Number2).
+summand(Number1,Number2):-redundant(Number1),redundant(Number2),!.
+summand(Number1,Number2):-Number1_1 is Number1 +1,Number2_1 is Number2-1,Number1=<Number2,summand(Number1_1,Number2_1).
+
+%Предикат перебора всех чисел от 1 до 20000
+kol_not_summand(Kol):-kol_not_summand(12,0,Kol).
+kol_not_summand(20000,Kol,Kol1):-Kol1 is 20000-Kol,!.
+kol_not_summand(I,Kol,Kolvo):-(summand(I)->Kol1 is Kol+1,write(I),nl;Kol1 is Kol),I1 is I+1,kol_not_summand(I1,Kol1,Kolvo).
 
 
