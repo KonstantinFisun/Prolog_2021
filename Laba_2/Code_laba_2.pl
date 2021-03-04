@@ -33,7 +33,7 @@ quest(1,doctor_octopus, 0).
 quest(1,falcon, 1).
 quest(1,rocket_raccoon, 0).
 quest(1,green_goblin, 0).
-quest(1,ant - quest, 0).
+quest(1,ant - man, 0).
 
 quest(1,juggernaut, 0).
 quest(1,odin, 0).
@@ -78,7 +78,7 @@ quest(2,doctor_octopus, 1).
 quest(2,falcon, 0).
 quest(2,rocket_raccoon, 0).
 quest(2,green_goblin, 1).
-quest(2,ant - quest, 0).
+quest(2,ant - man, 0).
 
 quest(2,juggernaut, 1).
 quest(2,odin, 0).
@@ -96,7 +96,7 @@ quest(2,valkyrie, 0).
 
 quest(3,spider-man, 1).
 quest(3,iron_man, 1).
-quest(3,hulk, 2).
+quest(3,hulk, 1).
 quest(3,сaptain_america, 1).
 quest(3,black_widow, 1).
 quest(3,thor, 2).
@@ -123,7 +123,7 @@ quest(3,doctor_octopus, 1).
 quest(3,falcon, 1).
 quest(3,rocket_raccoon, 0).
 quest(3,green_goblin, 1).
-quest(3,ant - quest, 1).
+quest(3,ant - man, 1).
 
 quest(3,juggernaut, 1).
 quest(3,odin, 0).
@@ -168,7 +168,7 @@ quest(4,doctor_octopus, 0).
 quest(4,falcon, 0).
 quest(4,rocket_raccoon, 0).
 quest(4,green_goblin, 0).
-quest(4,ant - quest, 1).
+quest(4,ant - man, 1).
 
 quest(4,juggernaut, 0).
 quest(4,odin, 0).
@@ -213,7 +213,7 @@ quest(5,doctor_octopus, 1).
 quest(5,falcon, 1).
 quest(5,rocket_raccoon, 0).
 quest(5,green_goblin, 1).
-quest(5,ant - quest, 1).
+quest(5,ant - man, 1).
 
 quest(5,juggernaut, 1).
 quest(5,odin, 0).
@@ -259,7 +259,7 @@ quest(6,doctor_octopus, 0).
 quest(6,falcon, 1).
 quest(6,rocket_raccoon, 0).
 quest(6,green_goblin, 0).
-quest(6,ant - quest, 1).
+quest(6,ant - man, 1).
 
 quest(6,juggernaut, 0).
 quest(6,odin, 0).
@@ -304,7 +304,7 @@ quest(7,doctor_octopus, 1).
 quest(7,falcon, 0).
 quest(7,rocket_raccoon, 0).
 quest(7,green_goblin, 1).
-quest(7,ant - quest, 0).
+quest(7,ant - man, 0).
 
 quest(7,juggernaut, 0).
 quest(7,odin, 0).
@@ -349,7 +349,7 @@ quest(8,doctor_octopus, 0).
 quest(8,falcon, 0).
 quest(8,rocket_raccoon, 0).
 quest(8,green_goblin, 1).
-quest(8,ant - quest, 1).
+quest(8,ant - man, 1).
 
 quest(8,juggernaut, 1).
 quest(8,odin, 2).
@@ -394,7 +394,7 @@ quest(9,doctor_octopus, 0).
 quest(9,falcon, 0).
 quest(9,rocket_raccoon, 0).
 quest(9,green_goblin, 0).
-quest(9,ant - quest, 0).
+quest(9,ant - man, 0).
 
 quest(9,juggernaut, 1).
 quest(9,odin, 1).
@@ -439,7 +439,7 @@ quest(10,doctor_octopus, 1).
 quest(10,falcon, 0).
 quest(10,rocket_raccoon, 0).
 quest(10,green_goblin, 1).
-quest(10,ant - quest, 0).
+quest(10,ant - man, 0).
 
 quest(10,juggernaut, 0).
 quest(10,odin, 0).
@@ -484,7 +484,7 @@ quest(11,doctor_octopus, 0).
 quest(11,falcon, 0).
 quest(11,rocket_raccoon, 0).
 quest(11,green_goblin, 0).
-quest(11,ant - quest, 0).
+quest(11,ant - man, 0).
 
 quest(11,juggernaut, 1).
 quest(11,odin, 0).
@@ -529,7 +529,7 @@ quest(12,doctor_octopus, 0).
 quest(12,falcon, 0).
 quest(12,rocket_raccoon, 0).
 quest(12,green_goblin, 0).
-quest(12,ant - quest, 0).
+quest(12,ant - man, 0).
 
 quest(12,juggernaut, 0).
 quest(12,odin, 0).
@@ -574,7 +574,7 @@ quest(13,doctor_octopus, 0).
 quest(13,falcon, 1).
 quest(13,rocket_raccoon, 0).
 quest(13,green_goblin, 0).
-quest(13,ant - quest, 0).
+quest(13,ant - man, 0).
 
 quest(13,juggernaut, 0).
 quest(13,odin, 0).
@@ -601,14 +601,14 @@ quest(14,doctor_strange, 0).
 quest(14,clint, 0).
 quest(14,black_panther, 0).
 quest(14,war_machine, 0).
-quest(14,vision, 2).
+quest(14,vision, 0).
 quest(14,nick_fury, 0).
 quest(14,thanos, 0).
-quest(14,groot, 2).
+quest(14,groot, 0).
 quest(14,gamora, 1).
 quest(14,loki, 0).
 quest(14,logan, 0).
-quest(14,ultron, 2).
+quest(14,ultron, 0).
 quest(14,quicksilver, 0).
 quest(14,deadpool, 0).
 quest(14,bucky, 0).
@@ -619,7 +619,7 @@ quest(14,doctor_octopus, 0).
 quest(14,falcon, 0).
 quest(14,rocket_raccoon, 0).
 quest(14,green_goblin, 0).
-quest(14,ant - quest, 0).
+quest(14,ant - man, 0).
 
 quest(14,juggernaut, 0).
 quest(14,odin, 0).
@@ -664,7 +664,7 @@ quest(15,doctor_octopus, 0).
 quest(15,falcon, 0).
 quest(15,rocket_raccoon, 0).
 quest(15,green_goblin, 0).
-quest(15,ant - quest, 0).
+quest(15,ant - man, 0).
 
 quest(15,juggernaut, 0).
 quest(15,odin, 0).
@@ -677,6 +677,49 @@ quest(15,drax, 0).
 quest(15,mantis, 0).
 quest(15,valkyrie, 0).
 
+%tree.
+
+quest(16,spider-man, 0).
+quest(16,iron_man, 0).
+quest(16,hulk, 0).
+quest(16,сaptain_america, 0).
+quest(16,black_widow, 0).
+quest(16,thor, 0).
+quest(16,scarlet_witch, 0).
+quest(16,doctor_strange, 0).
+quest(16,clint, 0).
+quest(16,black_panther, 0).
+quest(16,war_machine, 0).
+quest(16,vision, 0).
+quest(16,nick_fury, 0).
+quest(16,thanos, 0).
+quest(16,groot, 1).
+quest(16,gamora, 0).
+quest(16,loki, 0).
+quest(16,logan, 0).
+quest(16,ultron, 0).
+quest(16,quicksilver, 0).
+quest(16,deadpool, 0).
+quest(16,bucky, 0).
+quest(16,venom, 0).
+quest(16,red_skull, 0).
+quest(16,captain_marvel, 0).
+quest(16,doctor_octopus, 0).
+quest(16,falcon, 0).
+quest(16,rocket_raccoon, 0).
+quest(16,green_goblin, 0).
+quest(16,ant - man, 0).
+
+quest(16,juggernaut, 0).
+quest(16,odin, 0).
+quest(16,mephisto, 0).
+quest(16,nebula, 0).
+quest(16,shuri, 0).
+quest(16,phil_coulson, 0).
+quest(16,wong, 0).
+quest(16,drax, 0).
+quest(16,mantis, 0).
+quest(16,valkyrie, 0).
 
 %Предикат quest(+Question,-Answer)
 %Question - номер вопроса, Answer - соответствующий ответ
@@ -694,7 +737,7 @@ quest(2,X):-	write("Ваш персонаж на стороне зла?"),nl,
 				read(X).
 
 quest(3,X):-	write("Ваш персонаж является человеком?"),nl,
-                                write("2. Наполовину"),nl,
+                                write("2. Бог"),nl,
                                 write("1. Да"),nl,
 				write("0. Нeт"),nl,
 				read(X).
@@ -720,7 +763,7 @@ quest(7,X):-	write("Ваш персонаж был врагом человека паука?"),nl,
 				read(X).
 
 quest(8,X):-	write("Ваш персонаж носил маску?"),nl,
-                                write("2. Носил маску"),nl,
+                                write("2. Носил повязку"),nl,
 				write("1. Да"),nl,
 				write("0. Нет"),nl,
 				read(X).
@@ -763,29 +806,45 @@ quest(15,X):-write("Ваш персонаж разбрасывает паутину?"),nl,
 				write("0. Нет"),nl,
                                 read(X).
 
-%	Предикат next_quest(+Question,+Answer,-New_question).
-%	Question - предыдущий номер вопроса и
-%       Answer - данный на него ответ
-%       New_question - номер следующего вопроса исходя из Question
+quest(16,X):-write("Ваш персонаж дерево?"),nl,
+				write("1. Да"),nl,
+				write("0. Нет"),nl,
+                                read(X).
 
 
-next_quest(1,1,8).
-next_quest(1,0,3).
-
-
-
-
-%Вызов акинатора
+%Вызов акинатора с 1 вопроса и доступными героями
 pr:-pr(1,[spider-man,iron_man, hulk, сaptain_america, black_widow, thor, scarlet_witch, doctor_strange, clint, black_panther, war_machine,
           vision, nick_fury, thanos, groot, gamora, loki, logan, ultron, quicksilver, deadpool, bucky, venom, red_skull, captain_marvel,
           doctor_octopus, falcon, rocket_raccoon, green_goblin,ant-man]).
 
 
-pr(N,Marvel):-quest(N,X),check(N,X,Marvel,[],Marvel_other),(alone(Marvel_other)->write([Marvel_other]),!;N1 is N+1,pr(N1,Marvel_other)).
+pr(N,Marvel):-quest(N,X),check(N,X,Marvel,[],Marvel_other),(alone(Marvel_other)->write([Marvel_other]),!; N1 is N+1,(lenght_2(Marvel_other) ->
+                                                           select_quest(Marvel_other,N1,Next_quest),pr(Next_quest,Marvel_other);pr(N1,Marvel_other))).
 
 %Находим совпадение по ответам на вопросы
+% Предикат check(+Question,+Answer,+Marvel,+Other,+Marvel_other) - рекурсия вниз
+% Question - номер вопроса
+% Answer - ответ на вопрос
+% Marvel - герои рассматривыемые на данной итерации
+% Other - вспомогательный элемент для рекурсии
+% Marvel_other - герои прошедшие проверку
 check(_,_,[],Other,Other):-!.
 check(N,X,[Hero|Tail],Other,Marvel_other):-(quest(N,Hero,X)->check(N,X,Tail,[Hero|Other],Marvel_other);check(N,X,Tail,Other,Marvel_other)).
 
 %Проверка на пустоту списка
 alone([_|Notalone]):-Notalone=[].
+
+%Проверяем, чтобы длина списка была 2
+lenght_2([],L,L):-!.
+lenght_2([_|Tail],I,L):-I1 is I+1,lenght_2(Tail,I1,L).
+lenght_2(List):-lenght_2(List,0,L), L is 2.
+
+
+%Проверка какой вопрос задать, если осталось 2 элемента
+%Предикат select_quest([+Head1,Head2],+Quest,-Next_quest)
+%Head1,Head2 - 2 элемента
+%Quest - номер с какого вопроса начинать искать
+%Next_quest - номер вопроса, который нужно задать следующим
+
+select_quest([Hero1,Hero2],Quest,Next_quest):-quest(Quest,Hero1,Answer1),quest(Quest,Hero2,Answer2),(Answer1=\=Answer2 -> Next_quest is Quest,!;
+                                              Quest1 is Quest+1, select_quest([Hero1,Hero2],Quest1,Next_quest)).
