@@ -1,5 +1,5 @@
-% Задание 1. Реализовать предикат max(X,Y,Z), где Z максимальное из
-% чисел X и Y+
+% Задание 1. Реализовать предикат max(+X,+Y,?Z), где Z максимальное из
+% чисел X и Y
 
 
 max(X,Y,X):-X>Y,!.
@@ -7,97 +7,142 @@ max(X,Y,X):-X>Y,!.
 max(_,Y,Y).
 
 %Задание 2. Реализовать предикат max(X,Y,U,Z), где Z максимальное из
-%чисел X,Y и U.+
+%чисел X,Y и U.
+%Предикат max_1(+X,+Y,+U,?Z)
 max_1(X,Y,U,X):-X>Y,X>U,!.
 max_1(_,Y,U,Y):-Y>U,!.
 max_1(_,_,U,U).
 
-
+%Предикат max_2(+X,+Y,+U,?Z)
 max_2(X,Y,U,Z):-max(X,Y,C),max(U,C,Z).
 
 
-% Задание 3. Реализовать предикат fact(N,X), где X – это факториал
-% первого аргумента с помощью рекурсии вверх.+
-fact_up(0,1):-!.
+% Задание 3. Реализовать предикат fact_up(+N,?X), где X – это факториал
+% первого аргумента с помощью рекурсии вверх.
+
+fact_up(0,1):-!.%Дно рекурсии
 fact_up(N,X):-N1 is N-1,fact_up(N1,X1), X is N*X1.
 
-% Задание 4. Реализовать предикат fact(N,X), где X – это факториал
-% первого аргумента с помощью рекурсии вниз.+
-fact_down(N,X,N,X):-!.
+% Задание 4. Реализовать предикат fact_down(+N,-X), где X – это
+% факториал первого аргумента с помощью рекурсии вниз.
+
+%Предикат fact_down(+I,+Fact,+Num,-X)
+%I - счетчик от 1 до Num
+%Fact - факториал на определенном шаге
+%Num - исходное число, от которого считаем факториал
+%X - результат
+fact_down(N,X,N,X):-!.%Остановка
 fact_down(I,F,N,X):- I1 is I+1,F1 is F*I1,fact_down(I1,F1,N,X).
 
-fact_down(N,X):-fact_down(0,1,N,X).
+fact_down(N,X):-fact_down(0,1,N,X).%Для пользователя
 
-% Задание 5. Реализовать предикат fib(N,X), где X – число Фибоначчи с
-% номером N, причем 1 и 2 элемент равны 1 с помощью рекурсии вверх.+
+% Задание 5. Реализовать предикат fib(+N,?X), где X – число Фибоначчи с
+% номером N, причем 1 и 2 элемент равны 1 с помощью рекурсии вверх.
 
-fib_up(1,1):-!.
+fib_up(1,1):-!.%Дно рекурсии
 fib_up(2,1):-!.
 fib_up(N,X):-N1 is N-1,fib_up(N1,X1),N2 is N-2,fib_up(N2,X2), X is X1+X2.
 
 
-% Задание 6. Реализовать предикат fib(N,X), где X – число Фибоначчи с
-% номером N, причем 1 и 2 элемент равны 1 с помощью рекурсии вниз.+
+% Задание 6. Реализовать предикат fib_down(+N,-X), где X – число
+% Фибоначчи с номером N, причем 1 и 2 элемент равны 1 с помощью рекурсии
+% вниз.
 
-fib_down(N,X,_,N,X):-!.
+%Предикат fib_down(+I,+Fib1,+Fib2,+Num,-X)
+%I - счетчик от 1 до Num
+%Fib1 - первое число Фибоначчи
+%Fib2 - второе число Фибоначчи
+%Num - номер элемента последовательности Фибоначчи
+%X - результат
+fib_down(N,X,_,N,X):-!.%Остановка
 fib_down(I,F1,F2,N,X):-I1 is I+1,F3 is F1+F2,fib_down(I1,F2,F3,N,X).
 
-fib_down(N,X):-fib_down(1,1,1,N,X).
+fib_down(N,X):-fib_down(1,1,1,N,X).%Для пользователя
 
 
-% Задание 7. Найти сумму цифр числа с помощью рекурсии вверх+
-sum_digit_up(0,0):-!.
+% Задание 7. Найти сумму цифр числа с помощью рекурсии вверх
+% Предикат sum_digit_up(+N,?X) - где X сумма цифр числа N
+sum_digit_up(0,0):-!.%Дно рекурсии
 sum_digit_up(N,X):-N1 is N div 10, sum_digit_up(N1,X1),X is X1+N mod 10.
 
 
-% Задание 8. Найти сумму цифр числа с помощью рекурсии вниз.+
-sum_digit_down(N,X):-sum_digit_down(N,0,X).
-sum_digit_down(0,X,X):-!.
+% Задание 8. Найти сумму цифр числа с помощью рекурсии вниз.
+% Предикат sum_digit_down(+A,+Sum,-X)
+% A - оставшиеся число
+% Sum - сумма
+% X - результат
+sum_digit_down(0,X,X):-!.%Остановка
 sum_digit_down(A,Sum,X):-Am is A mod 10,Ad is A div 10,Sum1 is Sum+Am,sum_digit_down(Ad,Sum1,X).
 
+sum_digit_down(N,X):-sum_digit_down(N,0,X).%Для пользователя
 
-% Задание 9. Найти максимальную цифру числа с помощью рекурсии вверх +
-max_digit_up(0,0):-!.
+
+% Задание 9. Найти максимальную цифру числа с помощью рекурсии вверх
+% Предикат max_digit_up(+N,X?)
+max_digit_up(0,0):-!.%Дно рекурсии
 max_digit_up(N,X):-N1 is N div 10, max_digit_up(N1,X1), F is N mod 10, max(F,X1,X) .
 
-%Задание 10. Найти максимальную цифру числа с помощью рекурсии вниз.+
-max_digit_down(N,X):-max_digit_down(N,0,X).
+
+%Задание 10. Найти максимальную цифру числа с помощью рекурсии вниз.
+%Предикат max_digit_down(+N,-X) - для пользователя
+max_digit_down(N,X):-N1 is N mod 10,max_digit_down(N,N1,X). %Последнию цифру делаем максимальной
+
+%max_digit_down(+A,+Max,-X)
+%A - оставшиеся число
+%Max - максимум на данном шаге
+%X - результат
 max_digit_down(0,X,X):-!. %остановка, когда нет цифр
-max_digit_down(A,Max,X):-Am is A mod 10,Ad is A div 10,Am1 is Ad mod 10, max(Am,Am1,C),max(C,Max,U),max_digit_down(Ad,U,X).
+max_digit_down(A,Max,X):-Am is A mod 10,Ad is A div 10,max(Am,Max,U),max_digit_down(Ad,U,X).
 
 
 % Задание 11.Найти сумму цифр числа, делящихся на 3 с помощью рекурсии
-% вверх+ и рекурсии вниз+.
-sum_digit_del3_up(0,0):-!.
+% вверх и рекурсии вниз.
+
+% Предикат sum_digit_del3_up(+Num,?X) - рекурсия вниз.
+sum_digit_del3_up(0,0):-!.%Дно рекурсии
 sum_digit_del3_up(N,X):-N1 is N div 10, sum_digit_del3_up(N1,X1), del3(N,Y), X is X1+Y.
 
+% Предикат del3(+X,-Y) возвращает 0 , если последняя цифра X не делится
+% на 3, иначе возвращает последнюю цифру
 del3(X,Y):- X mod 10 mod 3 =:= 0 , Y is X mod 10,!.
-del3(_,Y):-Y is 0,!.
+del3(_,Y):-Y is 0.
 
-
-sum_digit_del3_down(N,X):-sum_digit_del3_down(N,0,X).
-sum_digit_del3_down(0,X,X):-!.
+% Предикат sum_digit_del3_down(+A,+Sum,-X) - рекурсия вниз
+% % A - оставшиеся число
+% Sum - сумма, делящихся на 3
+% X - результат
+sum_digit_del3_down(0,X,X):-!.%Остановка
 sum_digit_del3_down(A,Sum,X):- Ad is A div 10,del3(A,Y),Sum1 is Sum+Y, sum_digit_del3_down(Ad,Sum1,X).
 
+sum_digit_del3_down(N,X):-sum_digit_del3_down(N,0,X). %Для пользователя
 
-% Задание 12. Найти НОД двух чисел. +
+
+% Задание 12. Найти НОД двух чисел.
+% Предикат nod(+A,+B,-Nod).
 nod(A,A,A):-A=\=0,!. % остановка
 nod(0,B,B):-!.
 nod(A,0,A):-!.
-nod(A,B,Nod):-A>B,C is A mod B, nod(C,B,Nod).
-nod(A,B,Nod):-A<B,C is B mod A, nod(A,C,Nod).
+nod(A,B,Nod):-A>B,C is A mod B, nod(C,B,Nod),!.
+nod(A,B,Nod):-C is B mod A, nod(A,C,Nod).
 
 %Проверить число на простоту
-prime(N,X):- N mod X =:= 0,!. % делится без остатка, выходим
-prime(N,X):- X*X=<N,X1 is X+1,prime(N,X1).
+%Предикат prime(+Num,+X)
+%Num - исходное число
+%X - счетчик от 2 до Num
+prime(N,N):-!.
+prime(N,X):-N mod X =:= 0,!,fail. %Если делится, то выходим
+prime(N,X):- X1 is X+1,prime(N,X1).
 
 prime(1):-!.
-prime(N):-not(prime(N,2)).
+prime(2):-!.
+prime(N):-prime(N,2).%Для пользователя
+
 
 %Найти количество делителей числа
-divisors(_,0,0):-!.
+%Предикат divisors(+N,+I,?X) - рекурсия вниз
+divisors(_,0,0):-!.%Дно рекурсии
 divisors(N,I,X):-N mod I =:= 0,I1 is I-1, divisors(N,I1,X1), X is X1+1,!; N mod I=\= 0, I1 is I -1, divisors(N,I1,X1), X is X1.
-divisors(N,X):-divisors(N,N,X1),X is X1-1.
+divisors(N,X):-divisors(N,N,X1),X is X1-1.%Для пользователя, убираем делитель который равен своему числу
 
 
 
@@ -127,20 +172,29 @@ kollanz_chain(Number,Lenght,Result):-Lenght1 is Lenght+1,(Number mod 2 =:= 0 -> 
 
 
 % Задание 14. Найти количество чисел, взаимно простых с заданным
-% рекурсией вверх+ и рекурсией вниз+
+% рекурсией вверх и рекурсией вниз
 
 
-
-kol_mutually_prime_up(_,0,0):-!.
-kol_mutually_prime_up(N,I,X):-nod(N,I,Nod),Nod =:= 1,I1 is I-1,kol_mutually_prime_up(N,I1,X1),X is X1+1; nod(N,I,Nod),Nod =\= 1, I1 is I-1,kol_mutually_prime_up(N,I1,X1), X is X1.
+%Предикат kol_mutually_prime_up(+Num,+I,?X) - рекурсия вверх
+%Num - исходное число
+%I - счетчик от 1 до Num
+%X - результат
+kol_mutually_prime_up(_,0,0):-!.%Дно рекурсии
+kol_mutually_prime_up(N,I,X):-nod(N,I,Nod),Nod =:= 1,I1 is I-1,kol_mutually_prime_up(N,I1,X1),X is X1+1,!;I1 is I-1,kol_mutually_prime_up(N,I1,X1), X is X1.
 kol_mutually_prime_up(N,X):-kol_mutually_prime_up(N,N,X).
 
 
-
+% Предикат mutually_prime(+X,+Y,-Z) - возвращает один если nod(X,Y,1),
+% иначе 0
 mutually_prime(X,Y,Z):-nod(X,Y,Nod),Nod =:= 1, Z is 1,!.
 mutually_prime(_,_,Z):- Z is 0,!.
 
-kol_mutually_prime_down(N,N,X,X):-!.
+%Предикат kol_mutually_prime_down(+Num,+I,+Kol,-X) - рекурсия вниз
+%Num - исходное число
+%I - счетчик от 1 до Num
+%Kol - количество на данном шаге
+%X - результат
+kol_mutually_prime_down(N,N,X,X):-!.%Остановка
 kol_mutually_prime_down(N,I,Kol,X):- mutually_prime(N,I,Nod),I1 is I+1, Kol1 is Kol+Nod,kol_mutually_prime_down(N,I1,Kol1,X).
 
 kol_mutually_prime_down(N,X):-kol_mutually_prime_down(N,1,0,X).
@@ -190,7 +244,7 @@ summand(Number1,Number2):-Number1_1 is Number1 +1,Number2_1 is Number2-1,Number1
 
 %Предикат перебора всех чисел от 1 до 20000
 kol_not_summand(Kol):-kol_not_summand(12,0,Kol).
-kol_not_summand(20000,Kol,Kol1):-Kol1 is 20000-Kol,!.
-kol_not_summand(I,Kol,Kolvo):-(summand(I)->Kol1 is Kol+1,write(I),nl;Kol1 is Kol),I1 is I+1,kol_not_summand(I1,Kol1,Kolvo).
+kol_not_summand(20000,Kol,Kol):-!.
+kol_not_summand(I,Kol,Kolvo):-(summand(I)->Kol1 is Kol;write(I),nl,Kol1 is Kol+1),I1 is I+1,kol_not_summand(I1,Kol1,Kolvo).
 
 
