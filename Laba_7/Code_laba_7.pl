@@ -112,6 +112,20 @@ indexOfMin([_|T], CurInd, MinInd, X, CurMin):-
 	NewCurInd is CurInd + 1, indexOfMin(T, NewCurInd, MinInd, X, CurMin).
 
 
+% Задание 4. Дана строка. Вывести первые три символа и последний три
+% символа, если длина строки больше 5. Иначе вывести первый символ столько
+%раз, какова длина строки.
+
+pr7_4:-read_str(A,N),(N>5->write_3(A),reverse(A,A1),write_3(A1);write_first(A,N)).
+
+% Предикат write_first(+Str,+Num) - выводит на экран первый элемент строки Str Num раз
+write_first(_,0,_):-!.
+write_first(Head,I,N):-name(Head1,[Head]),write(Head1),I1 is I-1,write_first(Head,I1,N).
+write_first([Head|_],N):-write_first(Head,N,N).
+
+%Предикат write_3(+Str) - выводит первые три элемента строки Str
+write_3([Head1,Head2,Head3|_]):-name(Head11,[Head1]),write(Head11),name(Head22,[Head2]),write(Head22),name(Head33,[Head3]),write(Head33).
+
 
 
 
