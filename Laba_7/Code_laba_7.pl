@@ -176,3 +176,21 @@ kolvo_minus([Head|Tail],I,Kolvo_minus):-(Head =:= 45->I1 is I+1,kolvo_minus(Tail
 kolvo_next_zero([_|Tail],Kolvo_zero):-kolvo_next_zero(Tail,0,Kolvo_zero).
 kolvo_next_zero([],Kolvo_zero,Kolvo_zero):-!.
 kolvo_next_zero([Head|Tail],I,Kolvo_zero):-(Head =:= 48->I1 is I+1,kolvo_next_zero(Tail,I1,Kolvo_zero);kolvo_next_zero(Tail,I,Kolvo_zero)).
+
+
+% Задание 8. Дана строка. Определите, какой символ в ней встречается
+% раньше: 'x' или 'w'. Если какого-то из символов нет, вывести сообщение об этом.
+
+pr7_8:-read_str(A,_),w(A,0,Indw),x(A,0,Indx),(Indw<Indx->write("w встретился раньше");write("x встретился раньше")).
+
+% Предикат w(+A,+I,-Ind) - возвращает индекс вхождения "w", иначе
+% выводит об ошибке
+
+w([],_,_):-write("Не нашелся w"),!,fail.
+w([Head|Tail],I,Ind):-(Head =:=119 -> Ind is I;I1 is I+1,w(Tail,I1,Ind)).
+
+% Предикат x(+A,+I,-Ind) - возвращает индекс вхождения "x", иначе
+% выводит об ошибке
+
+x([],_,_):-write("Не нашелся x"),!,fail.
+x([Head|Tail],I,Ind):-(Head =:=120 -> Ind is I;I1 is I+1,x(Tail,I1,Ind)).
