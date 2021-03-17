@@ -153,3 +153,26 @@ pr7_6:-read_str(A,_),show_every_3(A,0).
 %Предикаты show_every_3(+Str,I) - показывает каждый 3 символ
 show_every_3([],_):-!.
 show_every_3([Head|Tail],I):-I1 is I+1,(I1 mod 3 =:= 0->name(Head1,[Head]),write(Head1),nl,show_every_3(Tail,I1);show_every_3(Tail,I1)).
+
+
+% Задание 7. Дана строка. Определите общее количество символов '+' и '-' в ней. А
+%так же сколько таких символов, после которых следует цифра ноль.
+
+pr7_7:-read_str(A,_),kolvo_plus(A,Kolvo_plus),kolvo_minus(A,Kolvo_minus),kolvo_next_zero(A,Kolvo_zero),Sum is Kolvo_minus+Kolvo_plus+Kolvo_zero,
+	write("Общее количество символов = "),write(Sum).
+
+%Предикат kolvo_plus(+Str,-Kolvo_plus) - количество символов "+"
+kolvo_plus(Str,Kolvo_plus):-kolvo_plus(Str,0,Kolvo_plus).
+kolvo_plus([],Kolvo_plus,Kolvo_plus):-!.
+kolvo_plus([Head|Tail],I,Kolvo_plus):-(Head =:= 43->I1 is I+1,kolvo_plus(Tail,I1,Kolvo_plus);kolvo_plus(Tail,I,Kolvo_plus)).
+
+
+%Предикат kolvo_minus(+Str,-Kolvo_minus) - количество символов "-"
+kolvo_minus(Str,Kolvo_minus):-kolvo_minus(Str,0,Kolvo_minus).
+kolvo_minus([],Kolvo_minus,Kolvo_minus):-!.
+kolvo_minus([Head|Tail],I,Kolvo_minus):-(Head =:= 45->I1 is I+1,kolvo_minus(Tail,I1,Kolvo_minus);kolvo_minus(Tail,I,Kolvo_minus)).
+
+% Предикат kolvo_next_zero(+Str,-Kolvo_zero) - количество символов за которыми ноль
+kolvo_next_zero([_|Tail],Kolvo_zero):-kolvo_next_zero(Tail,0,Kolvo_zero).
+kolvo_next_zero([],Kolvo_zero,Kolvo_zero):-!.
+kolvo_next_zero([Head|Tail],I,Kolvo_zero):-(Head =:= 48->I1 is I+1,kolvo_next_zero(Tail,I1,Kolvo_zero);kolvo_next_zero(Tail,I,Kolvo_zero)).
