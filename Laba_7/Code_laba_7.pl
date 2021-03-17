@@ -128,8 +128,19 @@ write_3([Head1,Head2,Head3|_]):-name(Head11,[Head1]),write(Head11),name(Head22,[
 
 
 
+%Задание 5. Показать номера символов, совпадающих с последним
+%символом строки.
+
+pr7_5:-read_str(A,_),last_simbol(A,Elem),show_match(A,Elem,0).
+
+%Предикат last_simbol(+Str,-Elem) - в Elem получает последний символ
+last_simbol([Head],Head):-!.
+last_simbol([_|Tail],Elem):-last_simbol(Tail,Elem).
 
 
-
-
+% Предикат show_match(+Str,+Elem,+I) - выводит номера элементов
+% совпадающие с Elem, где I счетчик символов
+show_match([_],_,_):-!.
+show_match([Elem|Tail],Elem,I):-write(I),nl,I1 is I+1,show_match(Tail,Elem,I1),!.
+show_match([_|Tail],Elem,I):-I1 is I+1,show_match(Tail,Elem,I1).
 
