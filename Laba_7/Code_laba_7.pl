@@ -194,3 +194,14 @@ w([Head|Tail],I,Ind):-(Head =:=119 -> Ind is I;I1 is I+1,w(Tail,I1,Ind)).
 
 x([],_,_):-write("Не нашелся x"),!,fail.
 x([Head|Tail],I,Ind):-(Head =:=120 -> Ind is I;I1 is I+1,x(Tail,I1,Ind)).
+
+
+% Задание 9. Даны две строки. Вывести большую по длине строку столько
+% раз, на сколько символов отличаются строки.
+
+pr7_9:-read_str(A1,N1),read_str(A2,N2),(N1>N2->N is N1-N2,write_bigger(A1,N);N is N2-N1,write_bigger(A2,N)).
+
+%Предикат write_bigger(+Str,+Num) - выводит строки N раз
+
+write_bigger(_,0):-!.
+write_bigger(Str,Num):-name(A,Str),write(A),nl,Num1 is Num-1,write_bigger(Str,Num1).
