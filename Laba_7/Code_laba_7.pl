@@ -205,3 +205,15 @@ pr7_9:-read_str(A1,N1),read_str(A2,N2),(N1>N2->N is N1-N2,write_bigger(A1,N);N i
 
 write_bigger(_,0):-!.
 write_bigger(Str,Num):-name(A,Str),write(A),nl,Num1 is Num-1,write_bigger(Str,Num1).
+
+
+%Задание 10.Дана строка. Если она начинается на 'abc', то заменить их на 'www',
+%иначе добавить в конец строки 'zzz'.
+
+pr7_10:-read_str(A,_),switch(A,A1),name(A2,A1),write(A2).
+
+% Предикат switch(+Str,-Res) - выполняет преобразования и записывает в Res
+
+switch([Head1,Head2,Head3|Tail],Res):-(Head1 is 97,Head2 is 98,Head3 is 99->append([119,119,119],Tail,Res);
+				      append([Head1,Head2,Head3|Tail],[122,122,122],Res)).
+
