@@ -217,3 +217,15 @@ pr7_10:-read_str(A,_),switch(A,A1),name(A2,A1),write(A2).
 switch([Head1,Head2,Head3|Tail],Res):-(Head1 is 97,Head2 is 98,Head3 is 99->append([119,119,119],Tail,Res);
 				      append([Head1,Head2,Head3|Tail],[122,122,122],Res)).
 
+
+%11.Дана строка. Если ее длина больше 10, то оставить в строке только
+%первые 6 символов, иначе дополнить строку символами 'o' до длины 12.
+
+pr7_11:-read_str(A,N),(N>10->simbol6(A,A1);simbol_to_12(A,N,A1)),name(Res,A1),write(Res).
+
+%Выражение simbol6(+Str,-Res) - оставляет первые 6 символов
+simbol6([Head1,Head2,Head3,Head4,Head5,Head6|_],[Head1,Head2,Head3,Head4,Head5,Head6]).
+
+% Предикат simbol_to_12(+Str,+N,-Res) - дополняет буквами о до 12 символов, где изначально их N
+simbol_to_12(Res,12,Res):-!.
+simbol_to_12(Str,N,Res):-N1 is N+1,append(Str,[111],Str1),simbol_to_12(Str1,N1,Res).
