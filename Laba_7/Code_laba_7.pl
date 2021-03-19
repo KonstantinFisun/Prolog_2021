@@ -279,3 +279,19 @@ x_abc([Head1,Head2,Head3,Head4|Tail],I,Res):-x_pruf(Head1,Head2,Head3,Head4)->ap
 % îáğàçóşò xabc
 
 x_pruf(Head1,Head2,Head3,Head4):-Head1 =:= 120,Head2 =:= 97,Head3 =:= 98,Head4 =:= 99.
+
+
+%18.Óäàëèòå â ñòğîêå âñå 'abc', çà êîòîğûìè ñëåäóåò öèôğà.
+
+pr7_18:-read_str(A,_),abc_digit(A,[],Res),name(A_n,Res),write(A_n).
+
+%Ïğåäèêàò abc_digit(+Str,+I,-Res) - óäàëåíèå abc çà êîòîğûìè öèôğà
+
+abc_digit([Head2,Head3,Head4],I,Res):-append(I,[Head2,Head3,Head4],Res),!.
+abc_digit([],Res,Res):-!.
+abc_digit([Head1,Head2,Head3,Head4|Tail],I,Res):-abc_digit_pruf(Head1,Head2,Head3,Head4)->append(I,[Head4],I1),abc_digit(Tail,I1,Res);append(I,[Head1],I1),abc_digit([Head2,Head3,Head4|Tail],I1,Res).
+
+% Ïğåäèêàò x_pruf(+Sub_str) - ïğîâåğÿåò, ÷òî ïåğâûå 4 ñèìâîëà ñòğîêè
+% îáğàçóşò xabc
+
+abc_digit_pruf(Head1,Head2,Head3,Head4):-Head1 =:= 97,Head2 =:= 98,Head3 =:= 99,Head4>=48,Head4=<57.
