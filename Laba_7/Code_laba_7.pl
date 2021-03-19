@@ -229,3 +229,11 @@ simbol6([Head1,Head2,Head3,Head4,Head5,Head6|_],[Head1,Head2,Head3,Head4,Head5,H
 % Предикат simbol_to_12(+Str,+N,-Res) - дополняет буквами о до 12 символов, где изначально их N
 simbol_to_12(Res,12,Res):-!.
 simbol_to_12(Str,N,Res):-N1 is N+1,append(Str,[111],Str1),simbol_to_12(Str1,N1,Res).
+
+%14.В данной строке найти количество цифр.
+
+pr7_14:-read_str(A,_),kolvo_digit(A,0,Kolvo),write(Kolvo).
+
+%Предикат kolvo_digit(+Str,+I,-Kolvo) - считает количество цифр в числе
+kolvo_digit([],Kolvo,Kolvo):-!.
+kolvo_digit([Head|Tail],I,Kolvo):-Head>=48,Head=<57->I1 is I+1,kolvo_digit(Tail,I1,Kolvo);kolvo_digit(Tail,I,Kolvo).
