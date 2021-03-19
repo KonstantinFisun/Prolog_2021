@@ -263,3 +263,19 @@ word_letter([Head1,Head2,Head3,Head4|Tail],I,Res):-word_pruf(Head1,Head2,Head3,H
 % образуют word
 
 word_pruf(Head1,Head2,Head3,Head4):-Head1 =:= 119,Head2 =:= 111,Head3 =:= 114,Head4 =:= 100.
+
+
+%17.Удалите в строке все буквы 'x'. за которыми следует 'abc'.
+
+pr7_17:-read_str(A,_),x_abc(A,[],Res),name(A_n,Res),write(A_n).
+
+%Предикат x_abc(+Str,+I,-Res) - удаление x за которым abc
+
+x_abc([Head2,Head3,Head4],I,Res):-append(I,[Head2,Head3,Head4],Res),!.
+x_abc([],Res,Res):-!.
+x_abc([Head1,Head2,Head3,Head4|Tail],I,Res):-x_pruf(Head1,Head2,Head3,Head4)->append(I,[97,98,99],I1),x_abc(Tail,I1,Res);append(I,[Head1],I1),x_abc([Head2,Head3,Head4|Tail],I1,Res).
+
+% Предикат x_pruf(+Sub_str) - проверяет, что первые 4 символа строки
+% образуют xabc
+
+x_pruf(Head1,Head2,Head3,Head4):-Head1 =:= 120,Head2 =:= 97,Head3 =:= 98,Head4 =:= 99.
