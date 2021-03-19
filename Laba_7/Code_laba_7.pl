@@ -237,3 +237,14 @@ pr7_14:-read_str(A,_),kolvo_digit(A,0,Kolvo),write(Kolvo).
 %Предикат kolvo_digit(+Str,+I,-Kolvo) - считает количество цифр в числе
 kolvo_digit([],Kolvo,Kolvo):-!.
 kolvo_digit([Head|Tail],I,Kolvo):-Head>=48,Head=<57->I1 is I+1,kolvo_digit(Tail,I1,Kolvo);kolvo_digit(Tail,I,Kolvo).
+
+% 15.Дана строка. Определить, содержит ли строка только символы 'a', 'b',
+%'c' или нет.
+
+pr7_15:-read_str(A,_),simbol_abc(A),write("Строка состоит только из символов a,b,c").
+
+% Предикат simbol_abc(+Str) - проверяет что в строке содержатся только
+% символы a,b,c
+simbol_abc([]):-!.
+simbol_abc([Head|_]):-Head =\=97,Head =\=98,Head =\=99,!,fail.
+simbol_abc([_|Tail]):-simbol_abc(Tail).
