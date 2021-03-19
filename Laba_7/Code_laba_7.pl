@@ -291,7 +291,23 @@ abc_digit([Head2,Head3,Head4],I,Res):-append(I,[Head2,Head3,Head4],Res),!.
 abc_digit([],Res,Res):-!.
 abc_digit([Head1,Head2,Head3,Head4|Tail],I,Res):-abc_digit_pruf(Head1,Head2,Head3,Head4)->append(I,[Head4],I1),abc_digit(Tail,I1,Res);append(I,[Head1],I1),abc_digit([Head2,Head3,Head4|Tail],I1,Res).
 
-% Предикат x_pruf(+Sub_str) - проверяет, что первые 4 символа строки
-% образуют xabc
+% Предикат abc_digit_pruf(+Sub_str) - проверяет, что первые 4 символа строки
+% образуют abc-цифру
 
 abc_digit_pruf(Head1,Head2,Head3,Head4):-Head1 =:= 97,Head2 =:= 98,Head3 =:= 99,Head4>=48,Head4=<57.
+
+
+%19.Найдите количество вхождения 'aba' в строку.
+
+pr7_19:-read_str(A,_),in_aba(A,0,Kolvo),write(Kolvo).
+
+%Предикат in_aba(+Str,+I,Kolvo) - количество вхождения 'aba'
+
+in_aba([_],Res,Res):-!.
+in_aba([_,_],Res,Res):-!.
+in_aba([Head1,Head2,Head3|Tail],I,Res):-aba_pruf(Head1,Head2,Head3)->I1 is I+1,in_aba([Head3|Tail],I1,Res);in_aba([Head2,Head3|Tail],I,Res).
+
+% Предикат aba_pruf(+Sub_str) - проверяет, что первые 3 символа строки
+% образуют aba
+
+aba_pruf(Head1,Head2,Head3):-Head1 =:= 97,Head2 =:= 98,Head3 =:= 97.
