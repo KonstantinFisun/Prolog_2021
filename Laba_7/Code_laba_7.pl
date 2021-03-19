@@ -248,3 +248,18 @@ pr7_15:-read_str(A,_),simbol_abc(A),write("Строка состоит только из символов a,b
 simbol_abc([]):-!.
 simbol_abc([Head|_]):-Head =\=97,Head =\=98,Head =\=99,!,fail.
 simbol_abc([_|Tail]):-simbol_abc(Tail).
+
+
+%16.Замените в строке все вхождения 'word' на 'letter'
+
+pr7_16:-read_str(A,_),word_letter(A,[],Res),name(A_n,Res),write(A_n).
+
+%Предикат word_letter(+Str,+I,-Res) - замена word на letter
+word_letter([Head2,Head3,Head4],I,Res):-append(I,[Head2,Head3,Head4],Res),!.
+word_letter([],Res,Res):-!.
+word_letter([Head1,Head2,Head3,Head4|Tail],I,Res):-word_pruf(Head1,Head2,Head3,Head4)->append(I,[108,101,116,116,101,114],I1),word_letter(Tail,I1,Res);append(I,[Head1],I1),word_letter([Head2,Head3,Head4|Tail],I1,Res).
+
+% Предикат word_pruf(+Sub_str) - проверяет, что первые 4 символа строки
+% образуют word
+
+word_pruf(Head1,Head2,Head3,Head4):-Head1 =:= 119,Head2 =:= 111,Head3 =:= 114,Head4 =:= 100.
