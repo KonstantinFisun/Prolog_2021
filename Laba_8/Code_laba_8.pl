@@ -97,3 +97,79 @@ a_bigger_ave([Head|Tail],Ave):-count_of_A_in_str(Head,0,Kolvo_a),(Kolvo_a>Ave->n
 	     a_bigger_ave(Tail,Ave)).
 
 
+%4. Дан файл, вывести самое частое слово.
+
+% Нужно сформировать список из всех слов а потом в нем находить
+% популярное
+pr8_4:-see('c:/Prolog/1111.txt'),read_list_str(List), seen,frequent_str(List,[],List_frequent),unique_elems(List_frequent,Unique_words),counts(Unique_words,C,List_frequent),indOfMax(C,Ind),el_by_number(Unique_words,Ind,Word),name(Word1,Word),write("Самое популярное слово : "),write(Word1).
+
+
+% Предикат frequent_str(+List_str,-List_frequent):-возвращает список
+% всех слов
+frequent_str([],List_frequent,List_frequent):-!.
+frequent_str([Head|Tail],I,List_frequent):-get_words(Head,Words),append(I,Words,I1),frequent_str(Tail,I1,List_frequent).
+
+%Предикат get_words(+Str,-Words) - получает список слов
+get_words(A,Words):-get_words(A,[],Words).
+
+get_words([],List_words,List_words):-!.
+get_words(Str,Words,List_words):-skip_space(Str,New_Str),get_word(New_Str,Word,New_Str_after_word),
+    Word \=[],append(Words,[Word],New_list_word),get_words(New_Str_after_word,New_list_word,List_words),!.
+get_words(_,List_words,List_words).
+
+%Предикат, который получает для данного элемента
+%количество раз, которое он встречается в списке.
+counts([],[],_):-!.
+counts([Word|T_words],[Count|T_counts],Words):-
+	count(Word,Words,Count),counts(T_words,T_counts,Words).
+
+count(_, [], 0):-!.
+count(Elem, List, X):- count(Elem, List, 0, X).
+count(_, [], Count, Count):- !.
+count(Elem, [Elem|T], Count, X):- Count1 is Count + 1, count(Elem, T, Count1, X), !.
+count(Elem, [_|T], Count, X):- count(Elem, T, Count, X).
+
+%Находим элемент под индексом
+el_by_number(A,Ind,El):-el_by_number(A,1,Ind,El).
+el_by_number([],_,_,nil):-!.
+el_by_number([El|_],Ind,Ind,El):-!.
+el_by_number([_|T],I,Ind,El):-I1 is I+1,el_by_number(T,I1,Ind,El).
+
+%Предикат построения списка из уникальных элементов
+unique_elems([], []):- !.
+unique_elems([H|T], List2):- unique_elems([H|T], List2, []).
+unique_elems([], CurList, CurList):- !.
+unique_elems([H|T], List, []):- unique_elems(T, List, [H]), !.
+unique_elems([H|T], List, CurList):-
+	not(contains(CurList, H)), append(CurList, [H], NewList), unique_elems(T, List, NewList), !.
+unique_elems([_|T], List, CurList):- unique_elems(T, List, CurList).
+
+contains([], _):- !, fail.
+contains([H|_], H):- !.
+contains([_|T], N):- contains(T, N).
+
+%Получаем индекс максимального элемента
+indOfMax(X,Y):-indexOfMin(X,Y).
+indexOfMin([], -1):- !.
+indexOfMin([H|T], X):-indexOfMin(T, 1, 1, X, H).
+indexOfMin([], _, MinInd, MinInd, _):-!.
+indexOfMin([H|T], CurInd, _, X, CurMin):-
+	H > CurMin, NewCurInd is CurInd + 1, indexOfMin(T, NewCurInd, NewCurInd, X, H), !.
+indexOfMin([_|T], CurInd, MinInd, X, CurMin):-
+	NewCurInd is CurInd + 1, indexOfMin(T, NewCurInd, MinInd, X, CurMin).
+
+%Предикат skip_space(+Str,-New_Str) - пропуск пробелов в начале строки
+skip_space([32|Tail],New_Str):-skip_space(Tail,New_Str),!.
+skip_space(New_Str,New_Str).%Возврат строки без пробела
+
+% Предикат get_word(+Str,-Word,-New_Str_after_word) - считывает из
+% строки слово
+get_word([],[],[]):-!. %Остановка если пришла пустая строка
+get_word(Str,Word,New_Str_after_word):-get_word(Str,[],Word,New_Str_after_word).
+
+get_word([],Word,Word,[]).%Возвращаем пустую строку если после слова ничего нет
+get_word([32|T],Word,Word,T):-!. % Считываем до пробела и возвращаем строку без него
+get_word([H|T],W,Word,New_Str_after_word):-append(W,[H],W1),get_word(T,W1,Word,New_Str_after_word). % Считываем символы слова
+
+
+
