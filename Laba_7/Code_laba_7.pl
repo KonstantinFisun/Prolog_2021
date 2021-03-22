@@ -311,3 +311,22 @@ in_aba([Head1,Head2,Head3|Tail],I,Res):-aba_pruf(Head1,Head2,Head3)->I1 is I+1,i
 % образуют aba
 
 aba_pruf(Head1,Head2,Head3):-Head1 =:= 97,Head2 =:= 98,Head3 =:= 97.
+
+
+
+% 22.Дана строка. Вывести первый, последний и средний (если он есть))
+% символы
+
+pr7_22:-read_str(A,N),write("Первый символ: "),first_simbol(A,First),put(First),nl,
+(N mod 2 =:= 1 ->N1 is N div 2,middle_simbol(A,0,N1,Middle),write("Средний символ: "),put(Middle),nl;write("Среднего символа нет"),nl),
+	las_simbol(A,Last),write("Последний символ: "),put(Last),nl.
+
+first_simbol([Head|_],Head).
+
+
+middle_simbol([Head|_],I,I,Head):-!.
+middle_simbol([_|Tail],I,N,Res):-I1 is I+1,middle_simbol(Tail,I1,N,Res).
+
+
+las_simbol([Head],Head):-!.
+las_simbol([_|Tail],Res):-las_simbol(Tail,Res).
