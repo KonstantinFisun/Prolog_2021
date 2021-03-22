@@ -235,3 +235,22 @@ check_lowercase([Head|Tail],Num_Pred_Head):-(Head>=97,Head=<122->(Num_Pred_Head=
 %строке
 
 pr8_2_10:-read_str(A,_),count_of_A_in_str(A,0,Kolvo_A),write(Kolvo_A).
+
+
+
+%17. Дана строка в которой записан путь к файлу. Необходимо найти имя
+%файла без расширения.
+
+pr8_2_17:-read_str(A,_),reverse(A,Ar),to_dot(Ar,Ar_to_dot),before_slash(Ar_to_dot,[],Res),name(Res1,Res),write(Res1).
+
+% Предикат to_dot(+A,-Res) - убирает символы перед точкой(убирает
+% расширение)
+
+to_dot([46|Tail],Res):-append([],Tail,Res),!.
+to_dot([_|Tail],Res):-to_dot(Tail,Res).
+
+%Предикат before_slash(+A,+Iter,-Res) - убирает символы за /
+
+before_slash([47|_],Res,Res):-!.
+before_slash([Head|Tail],I,Res):-append([Head],I,I1),before_slash(Tail,I1,Res).
+
