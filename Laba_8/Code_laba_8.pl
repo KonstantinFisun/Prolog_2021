@@ -1,3 +1,10 @@
+
+% Предикат read_str(-Str,-Lenght) - чтение строки и подсчет количества
+% символов в ней
+read_str(A,N):-get0(X),r_str(X,A,[],N,0).
+r_str(10,A,A,N,N):-!.%Остановка
+r_str(X,A,B,N,K):-K1 is K+1,append(B,[X],B1),get0(X1),r_str(X1,A,B1,N,K1).
+
 %Предикат write_str(+Str) - вывод строки
 write_str([]):-!.
 write_str([H|Tail]):-put(H),write_str(Tail).
@@ -27,8 +34,9 @@ pr:-	see('c:/Prolog/1111.txt'),read_list_str(List), seen, write_list_str(List),
 		tell('c:/Prolog/111.txt'), write_list_str(List),told.
 
 
-%Задание 1. Прочитать из файла строки и вывести длину наибольшей строки.
-pr8_1:- see('c:/Prolog/1111.txt'), read_list_str(_, LengthList), seen, max(LengthList, Max), write(Max).
+% Задание 1.1. Прочитать из файла строки и вывести длину наибольшей
+% строки.
+pr8_1_1:- see('c:/Prolog/1111.txt'), read_list_str(_, LengthList), seen, max(LengthList, Max), write(Max).
 
 
 read_list_str(List, LengthList):-read_str(A,N,Flag),read_list_str([A],List,[N],LengthList,Flag).
@@ -46,8 +54,9 @@ in_list([_|T],El):-in_list(T,El).
 
 
 
-%Задание 2. Дан файл. Определить, сколько в файле строк, не содержащих пробелы.
-pr8_2:-  see('c:/Prolog/1111.txt'),read_list_str(List), seen, stroke_space(List,0,Num),nl,write(Num).
+% Задание 1.2. Дан файл. Определить, сколько в файле строк, не
+% содержащих пробелы.
+pr8_1_2:-  see('c:/Prolog/1111.txt'),read_list_str(List), seen, stroke_space(List,0,Num),nl,write(Num).
 
 % Предикат stroke_space(+List_str,+Num,-Num_space) - перебор всех строк
 % рекурсия вниз
@@ -61,10 +70,10 @@ count_of_space([_|Tail]):-count_of_space(Tail).
 
 
 
-%3.Дан файл, найти и вывести на экран только те строки, в которых букв
+%1.3.Дан файл, найти и вывести на экран только те строки, в которых букв
 %А больше, чем в среднем на строку
 
-pr8_3:-see('c:/Prolog/1111.txt'),read_list_str(List), seen,
+pr8_1_3:-see('c:/Prolog/1111.txt'),read_list_str(List), seen,
        count_of_A(List,[],List_Kolvo),average(List_Kolvo,Ave),a_bigger_ave(List,Ave).
 
 % Предикат count_of_A(+List_str,+I,-List_Kolvo) - находим в каждой
@@ -97,11 +106,11 @@ a_bigger_ave([Head|Tail],Ave):-count_of_A_in_str(Head,0,Kolvo_a),(Kolvo_a>Ave->n
 	     a_bigger_ave(Tail,Ave)).
 
 
-%4. Дан файл, вывести самое частое слово.
+%1.4. Дан файл, вывести самое частое слово.
 
 % Нужно сформировать список из всех слов а потом в нем находить
 % популярное
-pr8_4:-see('c:/Prolog/1111.txt'),read_list_str(List), seen,words_in_all_str(List,[],List_frequent),unique_elems(List_frequent,Unique_words),counts(Unique_words,C,List_frequent),indOfMax(C,Ind),el_by_number(Unique_words,Ind,Word),name(Word1,Word),write("Самое популярное слово : "),write(Word1).
+pr8_1_4:-see('c:/Prolog/1111.txt'),read_list_str(List), seen,words_in_all_str(List,[],List_frequent),unique_elems(List_frequent,Unique_words),counts(Unique_words,C,List_frequent),indOfMax(C,Ind),el_by_number(Unique_words,Ind,Word),name(Word1,Word),write("Самое популярное слово : "),write(Word1).
 
 
 % Предикат words_in_all_str(+List_str,-List_frequent):-возвращает список
@@ -173,7 +182,7 @@ get_word([H|T],W,Word,New_Str_after_word):-append(W,[H],W1),get_word(T,W1,Word,N
 
 
 
-% 5. Дан файл, вывести в отдельный файл строки, состоящие из слов, не
+% 1.5. Дан файл, вывести в отдельный файл строки, состоящие из слов, не
 %повторяющихся в исходном файле.
 
 %Берем все слова, оставлем только уникальные
@@ -181,7 +190,7 @@ get_word([H|T],W,Word,New_Str_after_word):-append(W,[H],W1),get_word(T,W1,Word,N
 % выводим эту строку
 
 
-pr8_5:-see('c:/Prolog/1111.txt'),read_list_str(List), seen, words_in_all_str(List,[],All_words),not_repeat(All_words,Unique_words),
+pr8_1_5:-see('c:/Prolog/1111.txt'),read_list_str(List), seen, words_in_all_str(List,[],All_words),not_repeat(All_words,Unique_words),
 	tell('c:/Prolog/111.txt'),сoincidence(List,Unique_words),told.
 
 % Предикат сoincidence(+List_str,+Unique_words,+Iter,-Correct_str)-
@@ -206,3 +215,17 @@ del(Head,[Head1|Tail],[Head1|Res]) :- not(Head = Head1),del(Head,Tail,Res).
 not_repeat([],[]):-!.
 not_repeat([Head|Tail],[Head|Res]) :- not(m_list(Tail,Head)), not_repeat(Tail,Res),!.
 not_repeat([Head|Tail],Res) :- del(Head,Tail,Head1), not_repeat(Head1,Res).
+
+
+% 2.2. Дана строка, состоящая из символов латиницы. Необходимо проверить,
+% упорядочены ли строчные символы этой строки по возрастанию.
+
+
+pr8_2_2:-read_str(A,_),check_lowercase(A).
+
+% Предикат check_lowercase(+Str,+Num_Pred_Head) - упорядочены ли
+% строчные символы Str по возрастанию
+
+check_lowercase([Head|Tail]):-(Head>=97,Head=<122->check_lowercase(Tail,Head);check_lowercase(Tail)).
+check_lowercase([],_):-!.
+check_lowercase([Head|Tail],Num_Pred_Head):-(Head>=97,Head=<122->(Num_Pred_Head=<Head->check_lowercase(Tail,Head);!,fail);check_lowercase(Tail,Num_Pred_Head)).
