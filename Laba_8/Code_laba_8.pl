@@ -229,3 +229,9 @@ pr8_2_2:-read_str(A,_),check_lowercase(A).
 check_lowercase([Head|Tail]):-(Head>=97,Head=<122->check_lowercase(Tail,Head);check_lowercase(Tail)).
 check_lowercase([],_):-!.
 check_lowercase([Head|Tail],Num_Pred_Head):-(Head>=97,Head=<122->(Num_Pred_Head=<Head->check_lowercase(Tail,Head);!,fail);check_lowercase(Tail,Num_Pred_Head)).
+
+
+% 10. Дана строка. Необходимо подсчитать количество букв "А" в этой
+%строке
+
+pr8_2_10:-read_str(A,_),count_of_A_in_str(A,0,Kolvo_A),write(Kolvo_A).
