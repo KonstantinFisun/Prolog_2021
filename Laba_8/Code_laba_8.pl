@@ -101,13 +101,13 @@ a_bigger_ave([Head|Tail],Ave):-count_of_A_in_str(Head,0,Kolvo_a),(Kolvo_a>Ave->n
 
 % Нужно сформировать список из всех слов а потом в нем находить
 % популярное
-pr8_4:-see('c:/Prolog/1111.txt'),read_list_str(List), seen,frequent_str(List,[],List_frequent),unique_elems(List_frequent,Unique_words),counts(Unique_words,C,List_frequent),indOfMax(C,Ind),el_by_number(Unique_words,Ind,Word),name(Word1,Word),write("Самое популярное слово : "),write(Word1).
+pr8_4:-see('c:/Prolog/1111.txt'),read_list_str(List), seen,words_in_all_str(List,[],List_frequent),unique_elems(List_frequent,Unique_words),counts(Unique_words,C,List_frequent),indOfMax(C,Ind),el_by_number(Unique_words,Ind,Word),name(Word1,Word),write("Самое популярное слово : "),write(Word1).
 
 
-% Предикат frequent_str(+List_str,-List_frequent):-возвращает список
+% Предикат words_in_all_str(+List_str,-List_frequent):-возвращает список
 % всех слов
-frequent_str([],List_frequent,List_frequent):-!.
-frequent_str([Head|Tail],I,List_frequent):-get_words(Head,Words),append(I,Words,I1),frequent_str(Tail,I1,List_frequent).
+words_in_all_str([],List_frequent,List_frequent):-!.
+words_in_all_str([Head|Tail],I,List_frequent):-get_words(Head,Words),append(I,Words,I1),words_in_all_str(Tail,I1,List_frequent).
 
 %Предикат get_words(+Str,-Words) - получает список слов
 get_words(A,Words):-get_words(A,[],Words).
@@ -118,7 +118,7 @@ get_words(Str,Words,List_words):-skip_space(Str,New_Str),get_word(New_Str,Word,N
 get_words(_,List_words,List_words).
 
 %Предикат, который получает для данного элемента
-%количество раз, которое он встречается в списке.
+%количество раз, которое он встречается в списке. - убирает повторы
 counts([],[],_):-!.
 counts([Word|T_words],[Count|T_counts],Words):-
 	count(Word,Words,Count),counts(T_words,T_counts,Words).
@@ -173,3 +173,36 @@ get_word([H|T],W,Word,New_Str_after_word):-append(W,[H],W1),get_word(T,W1,Word,N
 
 
 
+% 5. Дан файл, вывести в отдельный файл строки, состоящие из слов, не
+%повторяющихся в исходном файле.
+
+%Берем все слова, оставлем только уникальные
+% Рассматриваем строку, если в ней все слова совпадают с этим списком то
+% выводим эту строку
+
+
+pr8_5:-see('c:/Prolog/1111.txt'),read_list_str(List), seen, words_in_all_str(List,[],All_words),not_repeat(All_words,Unique_words),
+	tell('c:/Prolog/111.txt'),сoincidence(List,Unique_words),told.
+
+% Предикат сoincidence(+List_str,+Unique_words,+Iter,-Correct_str)-
+% смотрит, чтобы все слова строки были в unique_words
+
+сoincidence([],_):-!.
+сoincidence([Head|Tail],Unique_words):-(get_words(Head,Words_Head),coin_str(Words_Head,Unique_words)->write_str(Head),nl,сoincidence(Tail,Unique_words);сoincidence(Tail,Unique_words)).
+
+% Предикат coin_str(+Words_Str,+Unique_words) - возвращает true, если
+% все слова Str сопадают с уникальными
+coin_str([],_):-!.
+coin_str([Head|Tail],Unique_words):-m_list(Unique_words,Head),coin_str(Tail,Unique_words).
+
+m_list([El|_],El):-!.
+m_list([_|T],El):-m_list(T,El).
+
+%Формируем список из элементов которые не повторяются(Лаба 4)?
+del(_,[],[]):-!.
+del(Head,[Head|Tail],Res) :- del(Head,Tail,Res),!.
+del(Head,[Head1|Tail],[Head1|Res]) :- not(Head = Head1),del(Head,Tail,Res).
+
+not_repeat([],[]):-!.
+not_repeat([Head|Tail],[Head|Res]) :- not(m_list(Tail,Head)), not_repeat(Tail,Res),!.
+not_repeat([Head|Tail],Res) :- del(Head,Tail,Head1), not_repeat(Head1,Res).
