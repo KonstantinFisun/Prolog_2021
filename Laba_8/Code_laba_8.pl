@@ -286,3 +286,14 @@ year([32|Tail],Year,Year,Tail):-!.
 year([Head|Tail],I,Year,After_Year):-Head >=48,Head =<57,append(I,[Head],I1),year(Tail,I1,Year,After_Year),!.
 year([_|_],_,_,_):-!,false.
 
+
+%4.2 Дана строка. Необходимо найти все строчные символы латиницы,
+%которые в ней используются.
+
+pr8_4_2:-read_str(A,_),all_latin(A).
+
+%Предикат all_latin(+Str) - вывод всех латинский символов
+
+all_latin([]):-!.
+all_latin([Head|_]):-Head >=97,Head =<122,put(Head),fail.
+all_latin([_|Tail]):-all_latin(Tail).
