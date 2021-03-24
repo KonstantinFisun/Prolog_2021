@@ -297,3 +297,20 @@ pr8_4_2:-read_str(A,_),all_latin(A).
 all_latin([]):-!.
 all_latin([Head|_]):-Head >=97,Head =<122,put(Head),fail.
 all_latin([_|Tail]):-all_latin(Tail).
+
+
+
+%4.10 Дана строка. Необходимо найти количество задействованных
+%символов латиницы в этой строке (без дубликатов).
+
+pr8_4_10:-read_str(A,_),all_latin(A,[],Latin),not_repeat(Latin,Unique),write(Unique),lenght(Unique,N),write(N).
+
+%Предикат all_latin(+Str,Res) - вывод всех латинский символов в Res
+
+all_latin([],Latin,Latin):-!.
+all_latin([Head|Tail],I,Latin):-(Head >=97,Head =<122->append(I,[Head],I1),all_latin(Tail,I1,Latin);all_latin(Tail,I,Latin)).
+
+%Предикат lenght(+List,?Lenght)
+lenght([],L,L):-!.
+lenght([_|Tail],I,L):-I1 is I+1,lenght(Tail,I1,L).
+lenght(List,L):-lenght(List,1,L).
