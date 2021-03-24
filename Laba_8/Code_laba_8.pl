@@ -254,3 +254,35 @@ to_dot([_|Tail],Res):-to_dot(Tail,Res).
 before_slash([47|_],Res,Res):-!.
 before_slash([Head|Tail],I,Res):-append([Head],I,I1),before_slash(Tail,I1,Res).
 
+
+%Задание 3. Дана строка. Необходимо найти все даты, которые описаны в
+%виде "31 февраля 2007"
+
+pr8_3:-read_str(A,_),append(A,[32],A1),date_time(A1).
+
+%Предикат date_time(+Str) - выводит все даты в строке
+
+date_time([]):-!.
+date_time([32|Tail]):-date_time(Tail),!.
+date_time([Head|Tail]):-(day([Head|Tail],[],Day,After_Day)->(month(After_Day,[],Month,After_Month)->(year(After_Month,[],Year,After_Year)->
+	name(D,Day),write(D),write(" "),name(M,Month),write(M),write(" "),name(Y,Year),write(Y),nl,date_time(After_Year);date_time(After_Month));
+							  date_time(After_Day));date_time(Tail)).
+
+% Предикат day(+Str,+I,-Day,-After_Day) - возвращает день и после него
+% строку
+day([32|Tail],Day,Day,Tail):-!.
+day([Head|Tail],I,Day,After_Day):-Head >=48,Head =<57,append(I,[Head],I1),day(Tail,I1,Day,After_Day),!.
+day([_|_],_,_,_):-!,false.
+
+% Предикат month(+Str,+I,-Month,-After_Month) - возвращает месяц и после
+% него строку
+month([32|Tail],Month,Month,Tail):-!.
+month([Head|Tail],I,Month,After_Month):-Head >=97,Head =<122,append(I,[Head],I1),month(Tail,I1,Month,After_Month),!.
+month([_|_],_,_,_):-!,false.
+
+% Предикат year(+Str,+I,-Year,-After_Year) - возвращает год и после
+% него строку
+year([32|Tail],Year,Year,Tail):-!.
+year([Head|Tail],I,Year,After_Year):-Head >=48,Head =<57,append(I,[Head],I1),year(Tail,I1,Year,After_Year),!.
+year([_|_],_,_,_):-!,false.
+
