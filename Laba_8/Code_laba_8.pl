@@ -314,3 +314,51 @@ all_latin([Head|Tail],I,Latin):-(Head >=97,Head =<122->append(I,[Head],I1),all_l
 lenght([],L,L):-!.
 lenght([_|Tail],I,L):-I1 is I+1,lenght(Tail,I1,L).
 lenght(List,L):-lenght(List,1,L).
+
+
+%Задание 5. Прочитать список строк из файла. Упорядочить по длине
+%строки.
+
+pr8_5:-see('c:/Prolog/1111.txt'),read_list_str(A), seen,tell('c:/Prolog/111.txt'),list_lenght(A,[],List_Lenght),
+	bubble_sort(List_Lenght,_,A,Sorted_A),write_sort(Sorted_A),told.
+
+% Предикат write_sort(+List_Str) - выводит список строк в
+% сортированном виде
+write_sort([]):-!.
+write_sort([Head|Tail]):-name(Head1,Head),write(Head1),nl,write_sort(Tail).
+
+
+% Предикат lenght_strok_write(+Str,+Lenght) - выводит строку,
+% которой соответствует длина Lenght
+%lenght_strok_write([],_,_,_):-!.
+% lenght_strok_write([Head|Tail],Lenght,A,After_Delete):-(lenght(Head,Lenght_Head),Lenght
+% =:=Lenght_Head->name(Head1,Head),delete(A,Head,After_Delete),write(Head1),nl;lenght_strok_write(Tail,Lenght,A,After_Delete)).
+%
+
+% Предикат list_lenght(+List_Str,+I,-Res) - получает список всех длин
+% строк
+
+list_lenght([],Res,Res):-!.
+list_lenght([Head|Tail],I,Res):-lenght(Head,Lenght_Head),append(I,[Lenght_Head],I1),list_lenght(Tail,I1,Res).
+
+
+%?В алгоритме сортировки пузырьком:
+% Предикат sorted(+List,-Res) - получаем при каждом прохождении
+% наибольший элемент в конце
+
+
+sorted([], [],[],[]):-!.
+sorted([Head], [Head],[HeadStr],[HeadStr]):-!.
+sorted([First, Second|Tail], [Second|ListWithMaxEnd],[FirstStr, SecondStr|TailStr],[SecondStr|ListWithMaxEndStr]):-First > Second, !,
+	sorted([First|Tail], ListWithMaxEnd,[FirstStr|TailStr],ListWithMaxEndStr).
+sorted([First, Second|Tail], [First|ListWithMaxEnd],[FirstStr, SecondStr|TailStr], [FirstStr|ListWithMaxEndStr]):-sorted([Second|Tail], ListWithMaxEnd,[SecondStr|TailStr], ListWithMaxEndStr).
+
+
+% Предикат bubble_sort(+List,-Res) - выполняется до тех пор, пока
+% предыдущая сортировка не равна текущий(список отсортирован)
+bubble_sort(SortedList, SortedList,SortedList_Str,SortedList_Str):-
+	sorted(SortedList, DoubleSortedList,SortedList_Str,DoubleSortedList_Str),
+	SortedList = DoubleSortedList,SortedList_Str = DoubleSortedList_Str,!.%Остановка сортировки
+
+bubble_sort(List, SortedList,List_Str,SortedList_Str):-sorted(List, SortedPart,List_Str,SortedPart_List_Str),bubble_sort(SortedPart, SortedList,SortedPart_List_Str,SortedList_Str).
+
