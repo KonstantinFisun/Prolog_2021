@@ -328,13 +328,6 @@ write_sort([]):-!.
 write_sort([Head|Tail]):-name(Head1,Head),write(Head1),nl,write_sort(Tail).
 
 
-% ѕредикат lenght_strok_write(+Str,+Lenght) - выводит строку,
-% которой соответствует длина Lenght
-%lenght_strok_write([],_,_,_):-!.
-% lenght_strok_write([Head|Tail],Lenght,A,After_Delete):-(lenght(Head,Lenght_Head),Lenght
-% =:=Lenght_Head->name(Head1,Head),delete(A,Head,After_Delete),write(Head1),nl;lenght_strok_write(Tail,Lenght,A,After_Delete)).
-%
-
 % ѕредикат list_lenght(+List_Str,+I,-Res) - получает список всех длин
 % строк
 
@@ -362,3 +355,15 @@ bubble_sort(SortedList, SortedList,SortedList_Str,SortedList_Str):-
 
 bubble_sort(List, SortedList,List_Str,SortedList_Str):-sorted(List, SortedPart,List_Str,SortedPart_List_Str),bubble_sort(SortedPart, SortedList,SortedPart_List_Str,SortedList_Str).
 
+
+%«адание 6. ƒан список строк из файла. ”пор€дочить по количеству слов в
+%строке.
+
+pr8_6:-see('c:/Prolog/1111.txt'),read_list_str(A), seen,tell('c:/Prolog/111.txt'),list_word(A,[],List_Word),
+	bubble_sort(List_Word,_,A,Sorted_A),write_sort(Sorted_A),told.
+
+% ѕредикат list_word(+List_Str,+I,-Res) - находит в каждой строке количество слов,
+% воспользуемс€ предикатом get_words из прошлого задани€
+
+list_word([],Res,Res):-!.
+list_word([Head|Tail],I,Res):-get_words(Head,Words),lenght(Words,Count_Words),append(I,[Count_Words],I1),list_word(Tail,I1,Res).
