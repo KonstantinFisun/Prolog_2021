@@ -398,8 +398,8 @@ kolvo_digit([Head|Tail],I,Kolvo):-Head>=48,Head=<57->I1 is I+1,kolvo_digit(Tail,
 
 %2. В порядке увеличения среднего веса ASCII-кода символа строки
 
-pr8_8_2:-see('c:/Prolog/1111.txt'),read_list_str(A), seen,tell('c:/Prolog/111.txt'),ave_ascii_str(A,[],List_Word),
-	bubble_sort(List_Word,_,A,Sorted_A),write_sort(Sorted_A),told.
+pr8_8_2:-see('c:/Prolog/1111.txt'),read_list_str(A), seen,tell('c:/Prolog/111.txt'),ave_ascii_str(A,[],List_Ave),
+	bubble_sort(List_Ave,_,A,Sorted_A),write_sort(Sorted_A),told.
 
 % Предикат ave_ascii_str(+List_Str,+I,-Res) - находит средней вес ASCII
 % для каждой строки
@@ -412,3 +412,52 @@ ave_ascii_str([Head|Tail],I,Res):-get_ave_str(Head,0,0,_,_,Ave),append(I,[Ave],I
 
 get_ave_str([],Sum,Kolvo,Sum,Kolvo,Ave):-Ave is Sum/Kolvo,!.
 get_ave_str([Head|Tail],I_Sum,I_Kolvo,Sum,Kolvo,Ave):-I_Sum1 is I_Sum+Head,I_Kolvo1 is I_Kolvo+1,get_ave_str(Tail,I_Sum1,I_Kolvo1,Sum,Kolvo,Ave).
+
+
+%4. В порядке увеличения квадратичного отклонения среднего веса
+%ASCII-кода символа строки от среднего веса ASCII-кода символа первой
+%строки
+
+pr8_8_4:-see('c:/Prolog/1111.txt'),read_list_str([Head|Tail]), seen,tell('c:/Prolog/111.txt'),ave_ascii_str([Head|Tail],[],List_Ave),
+	get_ave_str(Head,0,0,_,_,Ave_Head),otklonen(List_Ave,Ave_Head,[],Otklonenie),
+	bubble_sort(Otklonenie,_,[Head|Tail],Sorted_A),write_sort(Sorted_A),told.
+
+%Вычисляем квадраты отклонений от среднего первой:
+otklonen([],_,Res,Res):-!.
+otklonen([Head|Tail],Ave_First,I,Res):-Otklon is ((Head-Ave_First)*(Head-Ave_First)),append(I,[Otklon],I1),otklonen(Tail,Ave_First,I1,Res).
+
+
+%7. В порядке увеличения разницы между количеством сочетаний
+%«гласная-согласная» и «согласная-гласная» в строке
+
+pr8_8_7:-see('c:/Prolog/1111.txt'),read_list_str(A), seen,tell('c:/Prolog/111.txt'),raznica(A,[],List_Raz),
+	bubble_sort(List_Raz,_,A,Sorted_A),write_sort(Sorted_A),told.
+
+% Предикат raznica(+List_Str,+I,-Res) - находит для каждой строки
+% разницу между «гласная-согласная» и «согласная-гласная»
+raznica([],Res,Res):-!.
+raznica([Head|Tail],I,Res):-kolvo_g_s(Head,0,Kolvo_g_s),kolvo_s_g(Head,0,Kolvo_s_g),Raz is (Kolvo_g_s - Kolvo_s_g),append(I,[Raz],I1),raznica(Tail,I1,Res).
+
+
+%Следующие предикаты считают количество «гласная-согласная» и «согласная-гласная» в строке
+kolvo_g_s([],Kolvo,Kolvo):-!.
+kolvo_g_s([_],Kolvo,Kolvo):-!.
+kolvo_g_s([Head1,Head2|Tail],K,Kolvo):-(glasn_sogl(Head1,Head2)->K1 is K+1,kolvo_g_s(Tail,K1,Kolvo);kolvo_g_s([Head2|Tail],K,Kolvo)).
+
+kolvo_s_g([],Kolvo,Kolvo):-!.
+kolvo_s_g([_],Kolvo,Kolvo):-!.
+kolvo_s_g([Head1,Head2|Tail],I,Kolvo):-(sogl_glasn(Head1,Head2)->I1 is I+1,kolvo_s_g(Tail,I1,Kolvo);kolvo_s_g([Head2|Tail],I,Kolvo)).
+
+%Предикат гласная-согласная:
+glasn_sogl(Head1,Head2):-Head2>=97,Head2=<122,(Head1 is 97;Head1 is 101;Head1 is 105;Head1 is 111;Head1 is 117;Head1 is 121),
+	                 (Head2 =\= 97,Head2 =\= 101,Head2 =\= 105,Head2 =\= 111,Head2 =\= 117,Head2 =\= 121,!).
+
+%Предикат согласная-гласная:
+sogl_glasn(Head1,Head2):-Head1>=97,Head1=<122,(Head2 is 97;Head2 is 101;Head2 is 105;Head2 is 111;Head2 is 117;Head2 is 121),
+	                 (Head1 =\= 97,Head1 =\= 101,Head1 =\= 105,Head1 =\= 111,Head1 =\= 117,Head1 =\= 121,!).
+
+
+
+
+
+
