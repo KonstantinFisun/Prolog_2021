@@ -391,3 +391,24 @@ count_words_after_digit([Head|Tail],I,Count_Words):-kolvo_digit(Head,0,Kolvo_Dig
 %Предикат kolvo_digit(+Str,+I,-Kolvo) - считает количество цифр в числе
 kolvo_digit([],Kolvo,Kolvo):-!.
 kolvo_digit([Head|Tail],I,Kolvo):-Head>=48,Head=<57->I1 is I+1,kolvo_digit(Tail,I1,Kolvo);kolvo_digit(Tail,I,Kolvo).
+
+
+%Задание 8.
+%Отсортировать строки в указанном порядке
+
+%2. В порядке увеличения среднего веса ASCII-кода символа строки
+
+pr8_8_2:-see('c:/Prolog/1111.txt'),read_list_str(A), seen,tell('c:/Prolog/111.txt'),ave_ascii_str(A,[],List_Word),
+	bubble_sort(List_Word,_,A,Sorted_A),write_sort(Sorted_A),told.
+
+% Предикат ave_ascii_str(+List_Str,+I,-Res) - находит средней вес ASCII
+% для каждой строки
+
+ave_ascii_str([],Res,Res):-!.
+ave_ascii_str([Head|Tail],I,Res):-get_ave_str(Head,0,0,_,_,Ave),append(I,[Ave],I1),ave_ascii_str(Tail,I1,Res).
+
+% Предикат get_ave_str(+Str,+I_Sum,+I_Kolvo,I,Sum-Ave) - возвращает
+% среднее значение ASCII кода для строки
+
+get_ave_str([],Sum,Kolvo,Sum,Kolvo,Ave):-Ave is Sum/Kolvo,!.
+get_ave_str([Head|Tail],I_Sum,I_Kolvo,Sum,Kolvo,Ave):-I_Sum1 is I_Sum+Head,I_Kolvo1 is I_Kolvo+1,get_ave_str(Tail,I_Sum1,I_Kolvo1,Sum,Kolvo,Ave).
