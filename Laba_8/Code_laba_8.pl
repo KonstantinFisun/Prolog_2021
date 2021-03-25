@@ -367,3 +367,27 @@ pr8_6:-see('c:/Prolog/1111.txt'),read_list_str(A), seen,tell('c:/Prolog/111.txt'
 
 list_word([],Res,Res):-!.
 list_word([Head|Tail],I,Res):-get_words(Head,Words),lenght(Words,Count_Words),append(I,[Count_Words],I1),list_word(Tail,I1,Res).
+
+
+%Задание 7. Дан список строк из файла. Упорядочить по количеству слов
+%идущих после чисел.
+
+pr8_7:-see('c:/Prolog/1111.txt'),read_list_str(A), seen,tell('c:/Prolog/111.txt'),list_word_after_digit(A,[],List_Word),
+	bubble_sort(List_Word,_,A,Sorted_A),write_sort(Sorted_A),told.
+
+% Предикат list_word(+List_Str,+I,-Res) - находит в каждой строке
+% количество слов после числа, воспользуемся предикатом get_words из
+% прошлого задания
+
+list_word_after_digit([],Res,Res):-!.
+list_word_after_digit([Head|Tail],I,Res):-get_words(Head,Words),count_words_after_digit(Words,0,Count_Words),append(I,[Count_Words],I1),list_word_after_digit(Tail,I1,Res).
+
+% Предикат count_words_after_digit(+Words,+I,-Count_Words) находит в
+% каждой строке количество слов после числа
+
+count_words_after_digit([_],Count_Words,Count_Words):-!.
+count_words_after_digit([Head|Tail],I,Count_Words):-kolvo_digit(Head,0,Kolvo_Digit),(Kolvo_Digit>0->I1 is I+1,count_words_after_digit(Tail,I1,Count_Words);count_words_after_digit(Tail,I,Count_Words)).
+
+%Предикат kolvo_digit(+Str,+I,-Kolvo) - считает количество цифр в числе
+kolvo_digit([],Kolvo,Kolvo):-!.
+kolvo_digit([Head|Tail],I,Kolvo):-Head>=48,Head=<57->I1 is I+1,kolvo_digit(Tail,I1,Kolvo);kolvo_digit(Tail,I,Kolvo).
