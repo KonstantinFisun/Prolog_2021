@@ -102,8 +102,8 @@ pr9_2:-make_ar(5,Positions),sochet(A_Positions,2,Positions),put_sim(Itog_slovo,A
 	name(Itog,Itog_slovo),
 	write(Itog),nl,fail.
 
-% Предикат put_sim(-Itog_slovo,+A_positions,Simbol) - должен определить
-% 2 места для буквы
+% Предикат put_sim(-Itog_slovo,+Sim_positions,Simbol) - должен
+% определить 2 места для буквы
 put_sim(Itog_Slovo,[Head1,Head2],[Sim]):-put_(Itog_Slovo,Head1,Sim),put_(Itog_Slovo,Head2,Sim).
 
 %Предика put_(-Itog_Slovo,Num,Sim) - ставит на позицию Num букву Sim
@@ -214,7 +214,7 @@ pr9_5:-Alfavit=[a,b,c,d,e,f],make_ar(6,Positions),
 
 
 %Переделываем для 6 букв
-% Предикат put_sim_6(-Itog_slovo,+A_positions,Simbol) - должен
+% Предикат put_sim_6(-Itog_slovo,+Sim_positions,Simbol) - должен
 % определить 2 места для буквы
 put_sim_6(Itog_Slovo,[Head1,Head2],[Sim]):-put_6(Itog_Slovo,Head1,Sim),put_6(Itog_Slovo,Head2,Sim).
 
@@ -244,3 +244,74 @@ put_tofree_6([H1,H2,H3,H4,H5,H6],Sim):-
 % удаляет рассмотренные позиции
 
 delete_position(Position,[Head1,Head2],New_Position):-delete(Position,Head1,I),delete(I,Head2,New_Position).
+
+
+%Задание 6. Дано множество {a,b,c,d,e,f}. Построить все слова длины 7, в
+%которых ровно 1 буква повторяются 2 раза, ровно одна буква повторяется
+%3 раза остальные буквы не повторяются. Вывод в файл.
+
+pr9_6_start:-tell('c:/Prolog/9_6.txt'),not(pr9_6),told.
+pr9_6:-Alfavit=[a,b,c,d,e,f],make_ar(7,Positions),
+
+	sochet(Sim1_Positions,2,Positions),%Выбираем 2 позиции для первой буквы
+	in_list(Alfavit,El1_when_2), %Выбрали первую букву которая встречается 2 раза
+	delete(Alfavit,El1_when_2,Alfavit_without_first),
+	name(El1_when_2,El1_when),
+	put_sim_7(Itog_slovo,Sim1_Positions,El1_when),%Расставляем её
+
+
+	delete_position(Positions,Sim1_Positions,New_Position), %Удаляем рассмотренные позиции
+	sochet(Sim2_Positions,3,New_Position), %Выбираем 3 позиции для второй буквы
+
+
+	in_list(Alfavit_without_first,El2_when_3), %Выбрали вторую букву которая встречается 3 раза
+	delete(Alfavit_without_first,El2_when_3,Alvavit_without_second),
+	name(El2_when_3,El2_when),
+	put_sim_7(Itog_slovo,Sim2_Positions,El2_when),%Расставляем её
+
+	in_list(Alvavit_without_second,El11), %Выбираем две оставшиеся буквы
+	delete(Alvavit_without_second,El11,Alfavit_without_three),
+	name(El11,El1),
+	put_tofree_7(Itog_slovo,El1),
+
+
+	in_list(Alfavit_without_three,El22),
+	delete(Alfavit_without_three,El22,_),
+	name(El22,El2),
+	put_tofree_7(Itog_slovo,El2),
+
+
+	name(Itog,Itog_slovo),
+	write(Itog),nl,fail.
+
+
+%Переделываем для 7 букв
+% Предикат put_sim_7(-Itog_slovo,+Sim_positions,Simbol) - должен
+% определить 2 места для буквы
+put_sim_7(Itog_Slovo,[Head1,Head2],[Sim]):-put_7(Itog_Slovo,Head1,Sim),put_7(Itog_Slovo,Head2,Sim).
+put_sim_7(Itog_Slovo,[Head1,Head2,Head3],[Sim]):-put_7(Itog_Slovo,Head1,Sim),put_7(Itog_Slovo,Head2,Sim),put_7(Itog_Slovo,Head3,Sim).
+
+%Предика put_7(-Itog_Slovo,Num,Sim) - ставит на позицию Num букву Sim
+put_7(Itog_slovo,Head,Sim):-
+
+	(Head is 1->Itog_slovo=[Sim,_,_,_,_,_,_],!);
+	(Head is 2->Itog_slovo=[_,Sim,_,_,_,_,_],!);
+	(Head is 3->Itog_slovo=[_,_,Sim,_,_,_,_],!);
+	(Head is 4->Itog_slovo=[_,_,_,Sim,_,_,_],!);
+	(Head is 5->Itog_slovo=[_,_,_,_,Sim,_,_],!);
+	(Head is 6->Itog_slovo=[_,_,_,_,_,Sim,_],!);
+	(Head is 7->Itog_slovo=[_,_,_,_,_,_,Sim]).
+
+
+% Предикат put_tofree_7(Itog_slovo,Sim) - ставит на свободное место
+% символ
+
+put_tofree_7([H1,H2,H3,H4,H5,H6,H7],Sim):-
+	(var(H1)->H1 is Sim),!;
+	(var(H2)->H2 is Sim),!;
+	(var(H3)->H3 is Sim),!;
+	(var(H4)->H4 is Sim),!;
+	(var(H5)->H5 is Sim),!;
+	(var(H6)->H6 is Sim),!;
+	(var(H7)->H7 is Sim),!.
+
