@@ -458,6 +458,28 @@ sogl_glasn(Head1,Head2):-Head1>=97,Head1=<122,(Head2 is 97;Head2 is 101;Head2 is
 
 
 
+%11. В порядке квадратичного отклонения дисперсии максимального
+%среднего веса ASCII-кода тройки символов в строке от максимального
+%среднего веса ASCII-кода тройки символов в первой строке
 
 
+pr8_8_11:-see('c:/Prolog/1111.txt'),read_list_str([Head|Tail]), seen,tell('c:/Prolog/111.txt'),max_ascii_3_str(Head,Max_First),max_ascii_3([Head|Tail],[],Max_3_List),otklonen(Max_3_List,Max_First,[],Otklonen),bubble_sort(Otklonen,_,[Head|Tail],Sorted_A),write_sort(Sorted_A),told.
 
+
+%Находим максимальный средний вес тройки символов для каждой строки
+
+max_ascii_3([],Res,Res):-!.
+max_ascii_3([Head|Tail],I,Res):-get_words(Head,Head_Words),max_ascii_3_str(Head_Words,Max),append(I,[Max],I1),max_ascii_3(Tail,I1,Res).
+
+%Находим максимальный средний вес тройки символов из слов строке
+
+max_ascii_3_str([],Max):-Max is 0,!.%Если нет троек
+max_ascii_3_str([Head|Tail],Max):-(simbol_3(Head,Ave)->max_ascii_3_str(Tail,Ave,Max),!;max_ascii_3_str(Tail,Max)).
+
+max_ascii_3_str([],Res,Res):-!.
+max_ascii_3_str([Head|Tail],I,Max):-(simbol_3(Head,Ave),Ave>I->max_ascii_3_str(Tail,Ave,Max);max_ascii_3_str(Tail,I,Max)).
+
+%Проверка, что слово состоит из трех символов
+
+
+simbol_3([Head1,Head2,Head3],Ave):-Ave is (Head1+Head2+Head3)/3,!.
