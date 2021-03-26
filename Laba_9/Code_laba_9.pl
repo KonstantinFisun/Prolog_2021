@@ -126,5 +126,22 @@ put_tofree([H1,H2,H3,H4,H5],Sim):-
 
 
 
+% Задание 3. Дано множество {a,b,c,d,e,f}. Построить все слова длины 5, в
+%которых ровно 2 буквы a, остальные буквы не повторяются. Вывод в файл.
 
+pr9_3_start:-tell('c:/Prolog/9_3.txt'),not(pr9_3),told.
+pr9_3:-Alfavit=[b,c,d,e,f],make_ar(5,Positions),sochet(A_Positions,2,Positions),put_a(Itog_slovo,A_Positions),
 
+	in_list(Alfavit,El11),
+	delete(Alfavit,El11,Alfavit_without1),
+	name(El11,El1),
+	put_tofree(Itog_slovo,El1),
+	in_list(Alfavit_without1,El22),
+	delete(Alfavit_without1,El22,Alfavit_without2),
+	name(El22,El2),
+	put_tofree(Itog_slovo,El2),
+	in_list(Alfavit_without2,El33),
+	name(El33,El3),
+	put_tofree(Itog_slovo,El3),
+	name(Itog,Itog_slovo),
+	write(Itog),nl,fail.
