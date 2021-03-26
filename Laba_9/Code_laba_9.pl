@@ -89,7 +89,7 @@ make_ar(0,[]):-!.
 make_ar(K,[K|Tail]):-K1 is K-1,make_ar(K1,Tail).
 
 pr9_2_start:-tell('c:/Prolog/9_2.txt'),not(pr9_2),told.
-pr9_2:-make_ar(5,Positions),sochet(A_Positions,2,Positions),put_a(Itog_slovo,A_Positions),
+pr9_2:-make_ar(5,Positions),sochet(A_Positions,2,Positions),put_sim(Itog_slovo,A_Positions,[97]),
 	in_list([b,c,d,e,f],El11),
 	name(El11,El1),
 	put_tofree(Itog_slovo,El1),
@@ -102,17 +102,18 @@ pr9_2:-make_ar(5,Positions),sochet(A_Positions,2,Positions),put_a(Itog_slovo,A_P
 	name(Itog,Itog_slovo),
 	write(Itog),nl,fail.
 
-% Предикат put_a(-Itog_slovo,+A_positions) - должен определить место для буквы a
-put_a(Itog_Slovo,[Head1,Head2]):-put_(Itog_Slovo,Head1),put_(Itog_Slovo,Head2).
+% Предикат put_a(-Itog_slovo,+A_positions,Simbol) - должен определить 2
+% места для буквы
+put_sim(Itog_Slovo,[Head1,Head2],[Sim]):-put_(Itog_Slovo,Head1,Sim),put_(Itog_Slovo,Head2,Sim).
 
-%Предика put_(-Itog_Slovo,Num) - ставит на позицию Num букву a
-put_(Itog_slovo,Head):-
+%Предика put_(-Itog_Slovo,Num,Sim) - ставит на позицию Num букву Sim
+put_(Itog_slovo,Head,Sim):-
 
-	(Head is 1->Itog_slovo=[97,_,_,_,_],!);
-	(Head is 2->Itog_slovo=[_,97,_,_,_],!);
-	(Head is 3->Itog_slovo=[_,_,97,_,_],!);
-	(Head is 4->Itog_slovo=[_,_,_,97,_],!);
-	(Head is 5->Itog_slovo=[_,_,_,_,97]).
+	(Head is 1->Itog_slovo=[Sim,_,_,_,_],!);
+	(Head is 2->Itog_slovo=[_,Sim,_,_,_],!);
+	(Head is 3->Itog_slovo=[_,_,Sim,_,_],!);
+	(Head is 4->Itog_slovo=[_,_,_,Sim,_],!);
+	(Head is 5->Itog_slovo=[_,_,_,_,Sim]).
 
 
 %Предикат put_tofree(Itog_slovo,Sim) - ставит на свободное место символ
@@ -130,7 +131,7 @@ put_tofree([H1,H2,H3,H4,H5],Sim):-
 %которых ровно 2 буквы a, остальные буквы не повторяются. Вывод в файл.
 
 pr9_3_start:-tell('c:/Prolog/9_3.txt'),not(pr9_3),told.
-pr9_3:-Alfavit=[b,c,d,e,f],make_ar(5,Positions),sochet(A_Positions,2,Positions),put_a(Itog_slovo,A_Positions),
+pr9_3:-Alfavit=[b,c,d,e,f],make_ar(5,Positions),sochet(A_Positions,2,Positions),put_sim(Itog_slovo,A_Positions,[97]),
 
 	in_list(Alfavit,El11),
 	delete(Alfavit,El11,Alfavit_without1),
@@ -145,3 +146,31 @@ pr9_3:-Alfavit=[b,c,d,e,f],make_ar(5,Positions),sochet(A_Positions,2,Positions),
 	put_tofree(Itog_slovo,El3),
 	name(Itog,Itog_slovo),
 	write(Itog),nl,fail.
+
+
+% Задание 4. Дано множество {a,b,c,d,e,f}. Построить все слова длины 5, в
+%которых ровно одна буква повторяется 2 раза, остальные буквы не
+%повторяются. Вывод в файл.
+
+pr9_4_start:-tell('c:/Prolog/9_4.txt'),not(pr9_4),told.
+pr9_4:-Alfavit=[a,b,c,d,e,f],make_ar(5,Positions),sochet(A_Positions,2,Positions),
+	in_list(Alfavit,El_when_2), %Выбрали букву которая встречается 2 раза
+	delete(Alfavit,El_when_2,Alvavit_without),
+	name(El_when_2,El),
+	put_sim(Itog_slovo,A_Positions,El),
+
+	in_list(Alvavit_without,El11),
+	delete(Alvavit_without,El11,Alfavit_without1),
+	name(El11,El1),
+	put_tofree(Itog_slovo,El1),
+	in_list(Alfavit_without1,El22),
+	delete(Alfavit_without1,El22,Alfavit_without2),
+	name(El22,El2),
+	put_tofree(Itog_slovo,El2),
+	in_list(Alfavit_without2,El33),
+	name(El33,El3),
+	put_tofree(Itog_slovo,El3),
+	name(Itog,Itog_slovo),
+	write(Itog),nl,fail.
+
+
