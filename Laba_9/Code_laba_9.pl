@@ -42,14 +42,13 @@ in_list_end([_|T],El):-in_list(T,El).
 
 %Задание 1:
 
-build_all_razm_p:-
-		read_str(A,_),read(K),b_a_rp(A,K,[]).
+%Предикат build_all_razm_p -строит все размещения с повторениями длины k
+build_all_razm_p:-read_str(A,_),read(K),b_a_rp(A,K,[]).
 
 b_a_rp(_,0,Perm1):-write_str(Perm1),nl,!,fail.
 b_a_rp(A,N,Perm):-in_list(A,El),N1 is N-1,b_a_rp(A,N1,[El|Perm]).
 
-build_all_perm:-
-		read_str(A,_),b_a_p(A,[]).
+build_all_perm:-read_str(A,_),b_a_p(A,[]).
 
 in_list_exlude([El|T],El,T).
 in_list_exlude([H|T],El,[H|Tail]):-in_list_exlude(T,El,Tail).
@@ -57,11 +56,11 @@ in_list_exlude([H|T],El,[H|Tail]):-in_list_exlude(T,El,Tail).
 b_a_p([],Perm1):-write_str(Perm1),nl,!,fail.
 b_a_p(A,Perm):-in_list_exlude(A,El,A1),b_a_p(A1,[El|Perm]).
 
-build_all_razm:-
-		read_str(A,_),read(K),b_a_r(A,K,[]).
+build_all_razm:-read_str(A,_),read(K),b_a_r(A,K,[]).
 
 b_a_r(_,0,Perm1):-write_str(Perm1),nl,!,fail.
 b_a_r(A,N,Perm):-in_list_exlude(A,El,A1),N1 is N-1,b_a_r(A1,N1,[El|Perm]).
+
 
 sub_set([],[]).
 sub_set([H|Sub_set],[H|Set]):-sub_set(Sub_set,Set).
@@ -397,3 +396,62 @@ put_tofree_9([H1,H2,H3,H4,H5,H6,H7,H8,H9],Sim):-
 	(var(H7)->H7 is Sim),!;
 	(var(H8)->H8 is Sim),!;
 	(var(H9)->H9 is Sim),!.
+
+
+%Задание 8. Дано множество {a,b,c,d,e,f}. Построить все слова длины 4, в
+%которых больше двух букв а. Вывод в файл.
+
+pr9_8_start:-tell('c:/Prolog/9_8.txt'),not(pr9_8_2),not(pr9_8_3),write("aaaa"),told.
+
+
+%Буква а 2 два раза
+pr9_8_2:-Alfavit=[b,c,d,e,f],make_ar(4,Positions),sochet(Sim_Positions,2,Positions),
+
+	put_sim_4(Itog_slovo,Sim_Positions,[97]),
+
+	in_list(Alfavit,El11),
+	name(El11,El1),
+	put_tofree_4(Itog_slovo,El1),
+
+	in_list(Alfavit,El22),
+	name(El22,El2),
+	put_tofree_4(Itog_slovo,El2),
+
+
+	name(Itog,Itog_slovo),
+	write(Itog),nl,fail.
+
+%Буква а 3 раза
+pr9_8_3:-Alfavit=[b,c,d,e,f],make_ar(4,Positions),sochet(Sim_Positions,3,Positions),
+
+	put_sim_4(Itog_slovo,Sim_Positions,[97]),
+
+	in_list(Alfavit,El11),
+	name(El11,El1),
+	put_tofree_4(Itog_slovo,El1),
+
+
+	name(Itog,Itog_slovo),
+	write(Itog),nl,fail.
+
+%Переделываем для 4 букв
+% Предикат put_sim_4(-Itog_slovo,+Sim_positions,Simbol) - должен
+% определить 2 места для буквы
+put_sim_4(Itog_Slovo,[Head1,Head2],[Sim]):-put_4(Itog_Slovo,Head1,Sim),put_4(Itog_Slovo,Head2,Sim).
+put_sim_4(Itog_Slovo,[Head1,Head2,Head3],[Sim]):-put_4(Itog_Slovo,Head1,Sim),put_4(Itog_Slovo,Head2,Sim),put_4(Itog_Slovo,Head3,Sim).
+
+%Предика put_9(-Itog_Slovo,Num,Sim) - ставит на позицию Num букву Sim
+put_4(Itog_slovo,Head,Sim):-
+
+	(Head is 1->Itog_slovo=[Sim,_,_,_],!);
+	(Head is 2->Itog_slovo=[_,Sim,_,_],!);
+	(Head is 3->Itog_slovo=[_,_,Sim,_],!);
+	(Head is 4->Itog_slovo=[_,_,_,Sim]).
+
+
+put_tofree_4([H1,H2,H3,H4],Sim):-
+	(var(H1)->H1 is Sim),!;
+	(var(H2)->H2 is Sim),!;
+	(var(H3)->H3 is Sim),!;
+	(var(H4)->H4 is Sim),!.
+
