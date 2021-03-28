@@ -25,7 +25,8 @@ read_list_str(List,List,1):-!.
 read_list_str(Cur_list,List,0):-
 	read_str(A,_,Flag),append(Cur_list,[A],C_l),read_list_str(C_l,List,Flag).
 
-
+print_list([]).
+print_list([Head|Tail]):-write(Head),print_list(Tail).
 
 read_list_str(List, LengthList):-read_str(A,N,Flag),read_list_str([A],List,[N],LengthList,Flag).
 read_list_str(List,List,LengthList, LengthList,1):-!.
@@ -667,4 +668,50 @@ pr9_10_2_2_2_1:-Alfavit=[a,b,c,d,e,f],	make_ar(7,Positions),sochet([El1_when_2,E
 
 
 
+%2. Составить предикат средствами SWI-Prolog, который составляет и выводит
+% в файл все слова алфавита {a,b,c,d,e,f} длины n, в которых ровно одна
+% буква повторяется k раз, а другая m раз, остальные буквы встречаются ровно 1 раз
+% или не встречаются вообще.
 
+pr9_11_start:-Alfavit=[a,b,c,d,e,f],write("Введите N = "),read(N),write("Введите K = "),read(K),write("Введите M = "),read(M),tell('c:/Prolog/9_11.txt'),not(build_all(Alfavit,N, K,M)),told.
+
+
+%генерируем все слова заданной длины:
+b_a_r_p(_,0, []):-!.
+b_a_r_p(Alfavit,N, [Head|Tail]):- in_list(Alfavit,Head), N1 is N - 1,b_a_r_p(Alfavit,N1, Tail).
+
+
+
+counter(Word, El, Kolvo):-
+    in_list(Word,El),%Проверка,что элемент есть в слове
+    findall(El, in_list(Word,El), List_of_Elem),%Возвращает список из этого элемента
+    length(List_of_Elem, Kolvo).%Сколько вхождений
+
+%  Условие на ровно одна буква M раз
+condition_on_M(Word, M, List_simbol):-
+    findall(El,counter(Word, El, M),List_of_M),%Получаем символы, которые встречаются M раз
+    list_to_set(List_of_M, List_simbol),%Убираем повторы
+    length(List_simbol, 1).%Таких элементов должен быть 1
+
+% Условие на  ровно одна буква K раз
+condition_on_K(Word, K, List_simbol):-
+    findall(El,counter(Word, El, K),List_of_K),%Получаем символы, которые встречаются K раз
+    list_to_set(List_of_K, List_simbol),%Убираем повторы
+    length(List_simbol, 1).%Таких элементов должен быть 1
+
+%Условие на
+condition_on_other(Word, Simbol1, Simbol2):-
+    append(Simbol1, Simbol2, Simbol1_Simbol2),%Объединяем символы из 2 предыдущих условий
+    subtract(Word, Simbol1_Simbol2, Other),%Удаляем их из слова
+    is_set(Other).%Проверка,чтобы оставшиеся элементы не повторялись
+
+%Строит все слова удавлетворяющий 3 ус
+build(Alfavit,N, К,M, Word):-
+    b_a_r_p(Alfavit,N,Word), %Строим все слова
+    condition_on_M(Word, M,Simbol1),
+    condition_on_K(Word, К, Simbol2),
+    condition_on_other(Word, Simbol1, Simbol2).
+
+build_all(Alfavit,N, К,M):-
+  build(Alfavit,N, К,M, Word),
+  print_list(Word), nl, fail.
