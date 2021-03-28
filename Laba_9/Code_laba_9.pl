@@ -243,7 +243,7 @@ put_tofree_6([H1,H2,H3,H4,H5,H6],Sim):-
 % удаляет рассмотренные позиции
 
 delete_position(Position,[Head1,Head2],New_Position):-delete(Position,Head1,I),delete(I,Head2,New_Position).
-
+delete_position(Position,[Head1,Head2,Head3],New_Position):-delete(Position,Head1,I1),delete(I1,Head2,I),delete(I,Head3,New_Position).
 
 %Задание 6. Дано множество {a,b,c,d,e,f}. Построить все слова длины 7, в
 %которых ровно 1 буква повторяются 2 раза, ровно одна буква повторяется
@@ -287,8 +287,9 @@ pr9_6:-Alfavit=[a,b,c,d,e,f],make_ar(7,Positions),
 %Переделываем для 7 букв
 % Предикат put_sim_7(-Itog_slovo,+Sim_positions,Simbol) - должен
 % определить 2 места для буквы
-put_sim_7(Itog_Slovo,[Head1,Head2],[Sim]):-put_7(Itog_Slovo,Head1,Sim),put_7(Itog_Slovo,Head2,Sim).
-put_sim_7(Itog_Slovo,[Head1,Head2,Head3],[Sim]):-put_7(Itog_Slovo,Head1,Sim),put_7(Itog_Slovo,Head2,Sim),put_7(Itog_Slovo,Head3,Sim).
+
+put_sim_7(_,[],[_]):-!.
+put_sim_7(Itog_Slovo,[Head|Tail],[Sim]):-put_7(Itog_Slovo,Head,Sim),put_sim_7(Itog_Slovo,Tail,[Sim]).
 
 %Предика put_7(-Itog_Slovo,Num,Sim) - ставит на позицию Num букву Sim
 put_7(Itog_slovo,Head,Sim):-
@@ -454,4 +455,216 @@ put_tofree_4([H1,H2,H3,H4],Sim):-
 	(var(H2)->H2 is Sim),!;
 	(var(H3)->H3 is Sim),!;
 	(var(H4)->H4 is Sim),!.
+
+
+% Задание 9. Дано множество {a,b,c,d,e,f}. Построить все слова длины 7, в
+%которых больше двух букв а. Вывод в файл.
+
+
+pr9_9_start:-tell('c:/Prolog/9_9.txt'),not(pr9_9_2),not(pr9_9_3),not(pr9_9_4),not(pr9_9_5),not(pr9_9_6),write("aaaaaaa"),told.
+
+
+%Буква а 2 два раза
+pr9_9_2:-Alfavit=[b,c,d,e,f],make_ar(7,Positions),sochet(Sim_Positions,2,Positions),
+
+	put_sim_7(Itog_slovo,Sim_Positions,[97]),
+
+	in_list(Alfavit,El11),%1
+	name(El11,El1),
+	put_tofree_7(Itog_slovo,El1),
+
+	in_list(Alfavit,El22),%2
+	name(El22,El2),
+	put_tofree_7(Itog_slovo,El2),
+
+	in_list(Alfavit,El33),%3
+	name(El33,El3),
+	put_tofree_7(Itog_slovo,El3),
+
+	in_list(Alfavit,El44),%4
+	name(El44,El4),
+	put_tofree_7(Itog_slovo,El4),
+
+	in_list(Alfavit,El55),%5
+	name(El55,El5),
+	put_tofree_7(Itog_slovo,El5),
+
+	name(Itog,Itog_slovo),
+	write(Itog),nl,fail.
+
+%Буква а 3 раза
+pr9_9_3:-Alfavit=[b,c,d,e,f],make_ar(7,Positions),sochet(Sim_Positions,3,Positions),
+
+
+	put_sim_7(Itog_slovo,Sim_Positions,[97]),
+
+	in_list(Alfavit,El11),%1
+	name(El11,El1),
+	put_tofree_7(Itog_slovo,El1),
+
+	in_list(Alfavit,El22),%2
+	name(El22,El2),
+	put_tofree_7(Itog_slovo,El2),
+
+	in_list(Alfavit,El33),%3
+	name(El33,El3),
+	put_tofree_7(Itog_slovo,El3),
+
+	in_list(Alfavit,El44),%4
+	name(El44,El4),
+	put_tofree_7(Itog_slovo,El4),
+
+	name(Itog,Itog_slovo),
+	write(Itog),nl,fail.
+
+%Буква a 4 раза
+pr9_9_4:-Alfavit=[b,c,d,e,f],make_ar(7,Positions),sochet(Sim_Positions,4,Positions),
+
+
+	put_sim_7(Itog_slovo,Sim_Positions,[97]),
+
+	in_list(Alfavit,El11),%1
+	name(El11,El1),
+	put_tofree_7(Itog_slovo,El1),
+
+	in_list(Alfavit,El22),%2
+	name(El22,El2),
+	put_tofree_7(Itog_slovo,El2),
+
+	in_list(Alfavit,El33),%3
+	name(El33,El3),
+	put_tofree_7(Itog_slovo,El3),
+
+	name(Itog,Itog_slovo),
+	write(Itog),nl,fail.
+
+%Буква a 5 раза
+pr9_9_5:-Alfavit=[b,c,d,e,f],make_ar(7,Positions),sochet(Sim_Positions,5,Positions),
+
+
+	put_sim_7(Itog_slovo,Sim_Positions,[97]),
+
+	in_list(Alfavit,El11),%1
+	name(El11,El1),
+	put_tofree_7(Itog_slovo,El1),
+
+	in_list(Alfavit,El22),%2
+	name(El22,El2),
+	put_tofree_7(Itog_slovo,El2),
+
+	name(Itog,Itog_slovo),
+	write(Itog),nl,fail.
+
+%Буква a 6 раза
+pr9_9_6:-Alfavit=[b,c,d,e,f],make_ar(7,Positions),sochet(Sim_Positions,6,Positions),
+
+
+	put_sim_7(Itog_slovo,Sim_Positions,[97]),
+
+	in_list(Alfavit,El11),%1
+	name(El11,El1),
+	put_tofree_7(Itog_slovo,El1),
+
+	name(Itog,Itog_slovo),
+	write(Itog),nl,fail.
+
+% Задание 10. Дано множество {a,b,c,d,e,f}. Построить все слова длины 7,
+% в которых ровно 4 различных буквы. Минимизировать перебор*. Вывод в файл.
+
+
+pr9_10_start:-tell('c:/Prolog/9_10.txt'),not(pr9_10_4_1_1_1),not(pr9_10_3_2_1_1),not(pr9_10_2_2_2_1),told.
+
+%4-1-1-1
+pr9_10_4_1_1_1:-Alfavit=[a,b,c,d,e,f],sochet(Alfavit_4,4,Alfavit),
+	make_ar(7,Positions),sochet(Sim_Positions,4,Positions),
+
+	in_list(Alfavit_4,El1_when_2), %Выбрали первую букву которая встречается 2 раза
+	delete(Alfavit_4,El1_when_2,Alfavit_without_first),
+	name(El1_when_2,El1_when),
+	put_sim_7(Itog_slovo,Sim_Positions,El1_when),%Расставляем её
+
+	in_list(Alfavit_without_first,El11), %Выбираем 1 один символ
+	delete(Alfavit_without_first,El11,Alfavit_without_second),
+	name(El11,El1),
+	put_tofree_7(Itog_slovo,El1),
+
+
+	in_list(Alfavit_without_second,El22), %Выбираем 1 один символ
+	delete(Alfavit_without_second,El22,Alfavit_without_three),
+	name(El22,El2),
+	put_tofree_7(Itog_slovo,El2),
+
+	in_list(Alfavit_without_three,El33), %Выбираем 1 один символ
+	name(El33,El3),
+	put_tofree_7(Itog_slovo,El3),
+
+
+	name(Itog,Itog_slovo),
+	write(Itog),nl,fail.
+
+%3-2-1-1
+pr9_10_3_2_1_1:-Alfavit=[a,b,c,d,e,f],sochet(Alfavit_4,4,Alfavit),
+	make_ar(7,Positions),sochet(Sim_Positions,2,Positions),
+
+	in_list(Alfavit_4,El1_when_2), %Выбрали первую букву которая встречается 2 раза
+	delete(Alfavit_4,El1_when_2,Alfavit_without_first),
+	name(El1_when_2,El1_when),
+	put_sim_7(Itog_slovo,Sim_Positions,El1_when),%Расставляем её
+
+	delete_position(Positions,Sim_Positions,New_Position), %Удаляем рассмотренные позиции
+	sochet(Sim2_Positions,3,New_Position), %Выбираем 3 позиции для второй буквы
+
+	in_list(Alfavit_without_first,El2_when_2),
+	delete(Alfavit_without_first,El2_when_2,Alfavit_without_second),
+	name(El2_when_2,El2_when),
+	put_sim_7(Itog_slovo,Sim2_Positions,El2_when),%Расставляем её
+
+	in_list(Alfavit_without_second,El11),
+	delete(Alfavit_without_second,El11,Alfavit_without_three),
+	name(El11,El1),
+	put_tofree_7(Itog_slovo,El1),
+
+
+	in_list(Alfavit_without_three,El22), %Выбираем 1 один символ
+	name(El22,El2),
+	put_tofree_7(Itog_slovo,El2),
+
+
+
+	name(Itog,Itog_slovo),
+	write(Itog),nl,fail.
+
+%2-2-2-1
+pr9_10_2_2_2_1:-Alfavit=[a,b,c,d,e,f],	make_ar(7,Positions),sochet([El1_when_2,El2_when_2,El3_when_2],3,Alfavit),
+
+	sochet(Sim1_Positions,2,Positions),%Выбираем 2 позиции для первой буквы
+
+	name(El1_when_2,El1_when),
+	put_sim_7(Itog_slovo,Sim1_Positions,El1_when),%Расставляем её
+
+	delete_position(Positions,Sim1_Positions,New_Position), %Удаляем рассмотренные позиции
+	sochet(Sim2_Positions,2,New_Position), %Выбираем 2 позиции для второй буквы
+
+	name(El2_when_2,El2_when),
+	put_sim_7(Itog_slovo,Sim2_Positions,El2_when),%Расставляем её
+
+	delete_position(New_Position,Sim2_Positions,New_New_Position), %Удаляем рассмотренные позиции
+	sochet(Sim3_Positions,2,New_New_Position), %Выбираем 2 позиции для третьей буквы
+
+	name(El3_when_2,El3_when),
+	put_sim_7(Itog_slovo,Sim3_Positions,El3_when),%Расставляем её
+
+	delete_position(Alfavit,[El1_when_2,El2_when_2,El3_when_2],New_alfavit),%Удаляем рассмотренные буквы
+
+
+	in_list(New_alfavit,El11),
+	name(El11,El1),
+	put_tofree_7(Itog_slovo,El1),
+
+
+	name(Itog,Itog_slovo),
+	write(Itog),nl,fail.
+
+
+
 
