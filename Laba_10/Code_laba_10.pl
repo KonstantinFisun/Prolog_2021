@@ -22,6 +22,8 @@ read_list_str(List,List,1):-!.
 read_list_str(Cur_list,List,0):-
 	read_str(A,_,Flag),append(Cur_list,[A],C_l),read_list_str(C_l,List,Flag).
 
+in_list_exlude1([El|T],El,T).
+in_list_exlude1([H|T],El,[H|Tail]):-in_list_exlude1(T,El,Tail).
 
 get_graph_edges(V,E):-get_V(V),write(V),nl,write("Edges"),nl,get_edges(V,E),write(E).
 %Считываем вершины
@@ -88,6 +90,7 @@ way_edge_check_N([H|T]):-append1([H|T],[H],Way),w_e_c_N(Way).
 w_e_c_N([_]):-!.
 w_e_c_N([[_,X]|[[X,Y]|Tail]]):-w_e_c_N([[X,Y]|Tail]).
 w_e_c_N([[_,X]|[[Y,X]|Tail]]):-w_e_c_N([[X,Y]|Tail]).
+
 
 
 
@@ -199,3 +202,20 @@ min_v_not_pryf(Code,[Head|Tail],V):-(not(in_list1(Code,Head))->V is Head,!;min_v
 
 code_pryf([],Ver_list,Ver_list,E,E):-!.
 code_pryf([Head_C|Tail_C],Ver_list,I_Ver_list,I_E,E):-min_v_not_pryf([Head_C|Tail_C],I_Ver_list,V),append(I_E,[[Head_C,V]],I1_E),delete(I_Ver_list,V,I1_Ver_list),code_pryf(Tail_C,Ver_list,I1_Ver_list,I1_E,E).
+
+%3. Дан неориентированный полуэйлеров граф. Найти Эйлеров путь
+
+pr10_3:-see('c:/Prolog/graf.txt'),read_graph(_,E1),seen,euler_N(E1).
+
+b_a_r([],[]):-!.
+b_a_r(A,[El|Perm]):-in_list_exlude1(A,El,A1),b_a_r(A1,Perm).
+
+euler_N(E):-b_a_r(E,Way),length(E,L),path(L,Way),write(Way),!.
+path(L,T):-path1(L1,T),L1==L.
+path1(1,[_]):-!.
+path1(K,[[_,X]|[[X,Y]|T]]):-path1(K1,[[X,Y]|T]),K is K1+1.
+path1(K,[[_,X]|[[Y,X]|T]]):-path1(K1,[[X,Y]|T]),K is K1+1.
+
+
+
+
