@@ -217,5 +217,24 @@ path1(K,[[_,X]|[[X,Y]|T]]):-path1(K1,[[X,Y]|T]),K is K1+1.
 path1(K,[[_,X]|[[Y,X]|T]]):-path1(K1,[[X,Y]|T]),K is K1+1.
 
 
+%5. Дан неориентированный граф. Построить все максимальные
+%паросочетания.
 
 
+pr10_5:-see('c:/Prolog/graf.txt'),read_graph(_,E1),seen,write(E1),nl,not(par(E1,[])).
+
+par([H|E1],S):-par([H],E1,T),check_par(T,S),write(T),nl,par(E1,[H|S]).
+par(T,[],T).
+par(T,[[A,B]|E],T1):-check_edge(T,[A,B])->par([[A,B]|T],E,T1);par(T,E,T1).
+
+check_par(_,[]):-!.
+check_par(T,[[A,B]|N]):-check_edge(T,[A,B])->!,fail;check_par(T,N),!.
+
+check_edge([],_):-!.
+check_edge([[X,Y]|_],[X,Y]):-!,fail.
+check_edge([[X,Y]|_],[Y,X]):-!,fail.
+check_edge([[_,Y]|_],[Y,_]):-!,fail.
+check_edge([[_,Y]|_],[_,Y]):-!,fail.
+check_edge([[X,_]|_],[_,X]):-!,fail.
+check_edge([[X,_]|_],[X,_]):-!,fail.
+check_edge([_|T],[A,B]):-check_edge(T,[A,B]),!.
