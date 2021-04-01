@@ -180,3 +180,22 @@ del(X,[Y|R],[Y|Q]):-del(X,R,Q).
 rem_uniq([],[]):-!.
 rem_uniq([H|T],[H|R]):- counter(H,T,N), N==1,del(H,T,Z),rem_uniq(Z,R),!.
 rem_uniq([H|T],R):- del(H,T,Z),rem_uniq(Z,R).
+
+%2. Дан код Прюфера, построить матрицу смежности вершин дерева.
+make_arr(48,[]):-!.
+make_arr(K,[K|Tail]):-K1 is K-1,make_arr(K1,Tail).
+
+pr10_2:-write("Код Прюфера:"),nl,read_str(Code),write(Code),nl,length(Code,N),V_N is N+2+48,
+	make_arr(V_N,V1),reverse(V1,V),write(V),code_pryf(Code,[Ver1,Ver2],V,[],E),nl,append(E,[[Ver1,Ver2]],E_end),nl,write(E_end).
+
+% Минимальная вершина, не содержащаяся в коде Прюфера.
+%Предикат min_v_not_pryf(+Code,+Ver_list,V)
+
+
+min_v_not_pryf(Code,[Head|Tail],V):-(not(in_list1(Code,Head))->V is Head,!;min_v_not_pryf(Code,Tail,V)).
+
+%Построение кода Прюфера
+%Предикат code_pryf(+Code,-I_Code,-Ver_list,+I_Ver_list,+I_E,-E)
+
+code_pryf([],Ver_list,Ver_list,E,E):-!.
+code_pryf([Head_C|Tail_C],Ver_list,I_Ver_list,I_E,E):-min_v_not_pryf([Head_C|Tail_C],I_Ver_list,V),append(I_E,[[Head_C,V]],I1_E),delete(I_Ver_list,V,I1_Ver_list),code_pryf(Tail_C,Ver_list,I1_Ver_list,I1_E,E).
