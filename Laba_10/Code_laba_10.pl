@@ -217,6 +217,39 @@ path1(K,[[_,X]|[[X,Y]|T]]):-path1(K1,[[X,Y]|T]),K is K1+1.
 path1(K,[[_,X]|[[Y,X]|T]]):-path1(K1,[[X,Y]|T]),K is K1+1.
 
 
+%4. ƒан неориентированный граф. Ќайти число внешней устойчивости
+%графа.„ислом внешней устойчивости можно назвать наименьшее количество вершин графа, которые в совокупности смежны со всеми остальными"
+
+pr10_4:-see('c:/Prolog/graf.txt'),read_graph(V1,E1),seen,write(V1),nl,write(E1),nl,pok(V1,E1,[],Pok),write(Pok).
+
+
+%ѕредикат pok(V,E,I,Min)- возвращает наименьшее такое число
+%Ќаходим вершину с максимальной степень
+
+pok(Ver,[],I,Pok):-append(Ver,I,Pok),!.
+pok([Head_V|Tail_V],[Head|Tail],I,Pok):-max_step_ver([Head_V|Tail_V],[Head|Tail],0,0,Ver),append(I,[Ver],I1),delete_v(Ver,[Head|Tail],New_E,[Head_V|Tail_V],[Head_V|Tail_V],New_V),pok(New_V,New_E,I1,Pok).
+
+
+%ѕредикат удалени€ всех смежных вершин с этой
+
+delete_v(Ver,E,New_E,[],V,New_V):-delete_ver(Ver,E,[],New_E,New_V,V),!.
+delete_v(Ver,E,New_E1,[Head|Tail],V,New_V1):-(in_list1(E,[Ver,Head])->delete_ver(Head,E,[],New_E,New_V,V),delete_v(Ver,New_E,New_E1,Tail,New_V,New_V1);delete_v(Ver,E,New_E1,Tail,V,New_V1)).
+
+
+%ѕредикат - удал€ет заданную вершину
+delete_ver(Ver,[],New_E,New_E,New_V,V):-delete(V,Ver,New_V),!.
+delete_ver(Ver,[Head|Tail],I,New_E,New_V,V):-(in_list1(Head,Ver)->delete_ver(Ver,Tail,I,New_E,New_V,V);
+				     append(I,[Head],I1),delete_ver(Ver,Tail,I1,New_E,New_V,V)).
+
+%ѕредикат  - находит вершину с максимальной степенью
+max_step_ver([],_,_,Ver,Ver):-!.
+max_step_ver([Head|Tail],E,Max_step,I,Ver):-step_ver(Head,E,0,Count),(Count>Max_step->I1 is Head,max_step_ver(Tail,E,Count,I1,Ver);
+								     max_step_ver(Tail,E,Max_step,I,Ver)).
+
+%ѕредикат step_ver - возвращает степень вершины
+step_ver(_,[],I,Count):-Count is I/2,!.
+step_ver(Ver,[Head|Tail],I,Count):-(in_list1(Head,Ver)->I1 is I+1,step_ver(Ver,Tail,I1,Count);step_ver(Ver,Tail,I,Count)).
+
 %5. ƒан неориентированный граф. ѕостроить все максимальные
 %паросочетани€.
 
@@ -233,8 +266,8 @@ check_par(T,[[A,B]|N]):-check_edge(T,[A,B])->!,fail;check_par(T,N),!.
 check_edge([],_):-!.
 check_edge([[X,Y]|_],[X,Y]):-!,fail.
 check_edge([[X,Y]|_],[Y,X]):-!,fail.
-check_edge([[_,Y]|_],[Y,_]):-!,fail.
-check_edge([[_,Y]|_],[_,Y]):-!,fail.
+check_edge([[_,X]|_],[X,_]):-!,fail.
+check_edge([[_,X]|_],[_,X]):-!,fail.
 check_edge([[X,_]|_],[_,X]):-!,fail.
 check_edge([[X,_]|_],[X,_]):-!,fail.
 check_edge([_|T],[A,B]):-check_edge(T,[A,B]),!.
