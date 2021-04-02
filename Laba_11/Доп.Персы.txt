@@ -1,0 +1,186 @@
+quest(1,juggernaut, 0).
+quest(1,odin, 0).
+quest(1,mephisto, 0).
+quest(1,nebula, 0).
+quest(1,shuri, 0).
+quest(1,phil_coulson, 0).
+quest(1,wong, 0).
+quest(1,drax, 0).
+quest(1,mantis, 0).
+quest(1,valkyrie, 0).
+
+
+quest(2,juggernaut, 1).
+quest(2,odin, 0).
+quest(2,mephisto, 1).
+quest(2,nebula, 2).
+quest(2,shuri, 0).
+quest(2,phil_coulson, 0).
+quest(2,wong, 0).
+quest(2,drax, 0).
+quest(2,mantis, 0).
+quest(2,valkyrie, 0).
+
+
+quest(3,juggernaut, 1).
+quest(3,odin, 0).
+quest(3,mephisto, 0).
+quest(3,nebula, 0).
+quest(3,shuri, 1).
+quest(3,phil_coulson, 1).
+quest(3,wong, 1).
+quest(3,drax, 0).
+quest(3,mantis, 0).
+quest(3,valkyrie, 2).
+
+
+quest(4,juggernaut, 0).
+quest(4,odin, 0).
+quest(4,mephisto, 0).
+quest(4,nebula, 0).
+quest(4,shuri, 0).
+quest(4,phil_coulson, 0).
+quest(4,wong, 0).
+quest(4,drax, 0).
+quest(4,mantis, 0).
+quest(4,valkyrie, 0).
+
+
+quest(5,juggernaut, 1).
+quest(5,odin, 0).
+quest(5,mephisto, 0).
+quest(5,nebula, 0).
+quest(5,shuri, 1).
+quest(5,phil_coulson, 1).
+quest(5,wong, 1).
+quest(5,drax, 1).
+quest(5,mantis, 0).
+quest(5,valkyrie, 0).
+
+
+quest(6,juggernaut, 0).
+quest(6,odin, 0).
+quest(6,mephisto, 0).
+quest(6,nebula, 0).
+quest(6,shuri, 0).
+quest(6,phil_coulson, 0).
+quest(6,wong, 0).
+quest(6,drax, 0).
+quest(6,mantis, 0).
+quest(6,valkyrie, 0).
+
+
+quest(7,juggernaut, 0).
+quest(7,odin, 0).
+quest(7,mephisto, 0).
+quest(7,nebula, 0).
+quest(7,shuri, 0).
+quest(7,phil_coulson, 0).
+quest(7,wong, 0).
+quest(7,drax, 0).
+quest(7,mantis, 0).
+quest(7,valkyrie, 0).
+
+
+quest(8,juggernaut, 1).
+quest(8,odin, 2).
+quest(8,mephisto, 0).
+quest(8,nebula, 0).
+quest(8,shuri, 0).
+quest(8,phil_coulson, 0).
+quest(8,wong, 0).
+quest(8,drax, 0).
+quest(8,mantis, 0).
+quest(8,valkyrie, 0).
+
+
+quest(9,juggernaut, 1).
+quest(9,odin, 1).
+quest(9,mephisto, 1).
+quest(9,nebula, 0).
+quest(9,shuri, 0).
+quest(9,phil_coulson, 0).
+quest(9,wong, 1).
+quest(9,drax, 0).
+quest(9,mantis, 0).
+quest(9,valkyrie, 0).
+
+
+quest(10,juggernaut, 0).
+quest(10,odin, 0).
+quest(10,mephisto, 0).
+quest(10,nebula, 0).
+quest(10,shuri, 1).
+quest(10,phil_coulson, 0).
+quest(10,wong, 0).
+quest(10,drax, 0).
+quest(10,mantis, 0).
+quest(10,valkyrie, 0).
+
+
+quest(11,juggernaut, 1).
+quest(11,odin, 0).
+quest(11,mephisto, 0).
+quest(11,nebula, 0).
+quest(11,shuri, 0).
+quest(11,phil_coulson, 0).
+quest(11,wong, 0).
+quest(11,drax, 0).
+quest(11,mantis, 0).
+quest(11,valkyrie, 0).
+
+quest(12,juggernaut, 0).
+quest(12,odin, 0).
+quest(12,mephisto, 1).
+quest(12,nebula, 0).
+quest(12,shuri, 0).
+quest(12,phil_coulson, 0).
+quest(12,wong, 1).
+quest(12,drax, 0).
+quest(12,mantis, 1).
+quest(12,valkyrie, 0).
+
+quest(13,juggernaut, 0).
+quest(13,odin, 0).
+quest(13,mephisto, 0).
+quest(13,nebula, 0).
+quest(13,shuri, 0).
+quest(13,phil_coulson, 1).
+quest(13,wong, 0).
+quest(13,drax, 0).
+quest(13,mantis, 0).
+quest(13,valkyrie, 0).
+
+
+quest(14,juggernaut, 0).
+quest(14,odin, 0).
+quest(14,mephisto, 0).
+quest(14,nebula, 1).
+quest(14,shuri, 1).
+quest(14,phil_coulson, 0).
+quest(14,wong, 0).
+quest(14,drax, 0).
+quest(14,mantis, 1).
+quest(14,valkyrie, 1).
+
+quest(15,juggernaut, 0).
+quest(15,odin, 0).
+quest(15,mephisto, 0).
+quest(15,nebula, 0).
+quest(15,shuri, 0).
+quest(15,phil_coulson, 0).
+quest(15,wong, 0).
+quest(15,drax, 0).
+quest(15,mantis, 0).
+quest(15,valkyrie, 0).
+
+quest(16,juggernaut, 0).
+quest(16,odin, 0).
+quest(16,mephisto, 0).
+quest(16,nebula, 0).
+quest(16,shuri, 0).
+quest(16,phil_coulson, 0).
+quest(16,wong, 0).
+quest(16,drax, 0).
+quest(16,mantis, 0).
+quest(16,valkyrie, 0).
