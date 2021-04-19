@@ -673,7 +673,7 @@ pr9_10_2_2_2_1:-Alfavit=[a,b,c,d,e,f],	make_ar(7,Positions),sochet([El1_when_2,E
 % буква повтор€етс€ k раз, а друга€ m раз, остальные буквы встречаютс€ ровно 1 раз
 % или не встречаютс€ вообще.
 
-pr9_11_start:-Alfavit=[a,b,c,d,e,f],write("¬ведите N = "),read(N),write("¬ведите K = "),read(K),write("¬ведите M = "),read(M),tell('c:/Prolog/9_11.txt'),not(build_all(Alfavit,N, K,M)),told.
+pr9_11_start:-Alfavit=[a,b,c,d,e,f],write("¬ведите N = "),read(N),write("¬ведите K = "),read(K),write("¬ведите M = "),read(M),not(build_all(Alfavit,N, K,M)),tell('c:/Prolog/9_11.txt'),not(build_all(Alfavit,N, K,M)),told.
 
 
 %генерируем все слова заданной длины:
